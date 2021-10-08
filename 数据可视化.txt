@@ -1,0 +1,47 @@
+ECharts是一个使用JavaScript实现的开源可视化库
+
+ECharts使用五部曲：
+1.  引入echarts.js文件
+2.  准备具有大小的DOM容器
+3.  初始化echarts实例对象
+4.  指定配置项和数据
+5.  将配置项设置给echarts实例对象
+
+echarts实例化对象：
+echarts . init(document.querSelector('.box'))
+
+配置项设置:
+实例对象名 . setOption(数据名)
+
+相关配置：
+title：标题组件
+tooltip：提示框组件
+legend：图例组件
+toolbox：工具栏
+grid：直角坐标系内绘图网格
+xAxis：直角坐标系grid中的x轴
+yAxis：直角坐标系grid中的y轴
+series：系列列表。 通过type决定直角的图表类型
+color：调色盘颜色列表
+
+
+边框图片：
+border-image-source:  url	边框图片路径
+border-image-slice：   px	裁剪尺寸（不加单位，上右下左的顺序）
+border-image-width：	图片边框的宽度（需要加单位）
+border-image-repeat： 	是否平铺（repeat），铺满（round），拉伸（stretch）
+
+复合写法：border-image：url（）  裁剪尺寸  /  边框宽度   round  
+
+
+监听浏览器缩放，图表对象调用缩放resize函数
+window.addEventListener("resize", function() {
+    myChart.resize();
+  });
+
+
+
+
+
+
+

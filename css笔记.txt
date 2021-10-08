@@ -1,0 +1,801 @@
+css通常称为css样式表/层叠样式表、级联样式表
+主要用于设置HTML页面中的文本内容（字体，大小，对齐方式），
+图片外形（宽高，边框样式，边距），以及版面布局和外观显示样式
+
+CSS三大特性：
+1.层叠性 ： 样式冲突遵循就近原则
+2.继承性 ： 子标签会继承父级的某些样式，如文本样式，颜色，字号，行高
+	   a标签不会继承文字颜色，h标签不能继承字号，（这些标签本来就有默认属性）
+3.优先级 ： 
+1.选择器（权重）相同，执行层叠性就近原则
+2.选择器不同：
+！important > 行内样式（style=） > ID选择器 > 类选择器/伪类选择器 > 标签选择器 > 继承/ * 
+权重叠加：
+
+
+css样式类型：
+1.行内式(内联样式)
+     通过标签的style属性来设置元素的样式
+
+2.内部样式（内嵌样式） 
+    将css代码集中写在HTML文档的head头部标签中，
+    用style标签定义
+
+3.外部样式
+        将样式放在一个或者多个 css的文件中
+        通过 link标签将文件链接到 html文档里
+        link 需要放到 head头部标签里
+        看表单的案例  css
+
+标签选择器：
+style中直接用标签作为选择器     如：
+<style>
+        div{
+            color: green;
+        }
+</style>
+优点：快速为页面中同类型统一样式
+缺点：不能差异化样式
+
+类选择器：
+style中用   .类名{    }作为选择器    如：
+<style>
+        .red{
+            color: red;
+        }
+    </style>
+<p class="red">文字</p>
+优点：可以差异化样式，一个或多个
+
+多类名： 类选择器的class里 用空格  隔开 
+作用：把公共的样式放到同一个类名样式里
+
+类选择器使用多类名只需要在class中空格隔开添加即可 如：
+<p class="blue font100">G</p>
+
+id 选择器：
+style中用   #类名{    }作为选择器    如：
+<style>
+        #pink{
+            color: hotpink;
+        }
+</style>
+<p id="pink">愿你出走半生</p>
+id 选择器和类选择器的区别：
+id选择器就像人的身份证，具有唯一性，不可重复使用
+类选择器就像人的名字，可重复使用
+
+通配符选择器：
+style中用  * 号表示选择器，选择页面中所有的标签
+<style>
+        *{
+            color:rebeccapurple;
+            font-size: 50px;
+        }
+</style>
+缺点：会匹配页面所有的元素，降低页面响应速度，不建议随便使用
+
+font样式：
+1. font-size 字体大小：
+               一般浏览器默认字体大小为16px，但个别浏览器可能会不一样
+       	因此，常常开始书写CSS时会定义body 字体为16px
+2. font-family 字体：
+        设置多种字体要用英文状态的逗号隔开
+        如果浏览器不支持第一个则会尝试使用下一个，以此类推，
+        中文字体要加引号，英文一般不用，要设置英文字体，要把英文字体放在中午字体前面
+3. font-weight 字体粗细：
+	normal  默认值（不加粗）
+        	bold  定义粗体（加粗）
+	lighter  特细  一般不会使用
+	bolder  特粗  一般不会使用
+        	100~900   400=normal  700=bold
+4. font-style 字体风格：
+	normal  默认值，浏览器显示标准字体样式
+         	italic  斜体，浏览器字体倾斜
+
+font综合设置样式：
+         选择器{font：font-style  font-weight  font-size/line-height  font-family;}
+			line-height可以接单位也可以不接单位，不接单位的行高为字号的x倍
+综合样式必须要按照上面的格式顺序书写，不能更换顺序，属性之间用空号隔开
+（先风格，再粗细，再大小，后字体）风格和粗细可以省略，但大小和字体不能省略,字体大小可以用/接行高
+
+text文本样式：
+text-align：（left right center）   文本对齐方式
+line-height：（25px）  行高  （一般比默认字号16px大7-8像素即可）
+text-indent：2em；  首行缩进1em是一个字的宽度，2em则是两个字的宽度（对不是独占一行的元素不生效）
+text-decoration:      文本的装饰
+	none 取消下划线
+	underline 定义下划线
+	overline    上划线    （很少用）
+	line-through    删除线    （很少用）
+ps：<a href"">链接是默认带下划线的；所以可以用text-decoration:none来取消
+
+后代选择器：
+后代选择器会选择所有的子孙后代
+其写法：外层标签写在前面，内层写在外面，用空号隔开
+<style>
+.nav a {
+            color: pink;
+        }
+</style>  
+<div class="nav">
+        <a href="">内部链接</a>
+</div>
+
+子元素选择器：
+子元素选择器用大于号来表示，只选亲儿子才有作用
+<style>
+div>strong {
+         color:violet;
+    }
+</style>
+<div>
+        <!-- strong 对于div来说就是亲儿子（子类） -->
+        <strong>儿子</strong>
+</div>
+下面这个strong则没有效果
+<div>
+        <p>
+            <!-- 这里 strong 对于div 来说是孙子 -->
+            <strong>孙子</strong>
+        </p>
+<div>
+
+交际选择器： 既是什么又是什么
+<style>
+        p.red {
+            color: red;
+        }
+</style>
+既是p标签，又是类名为red
+<p class="red">黑凤梨</p>
+下面这个p则不符合，所以没效果
+<p>黑凤梨</p>
+
+并集选择器：
+并集选择器 用逗号隔开，逗号看成 and 意思，通常用于集体声明
+<style>
+    p,
+    span,
+     .red,
+     #red {
+            color: red;
+        }
+</style>
+<p>黑凤梨</p>
+<span>黑凤梨</span>
+<div class="red">黑凤梨</div>
+<h3 id="red">黑凤梨</h3>
+
+链接伪类选择器：
+        a:link   未访问链接的状态
+        a:visited  已访问的链接的状态
+        a:hover  鼠标移动到连接上的状态
+        a:active  选定的链接（鼠标点击时）的状态
+        :focus   表单元素获得焦点时  针对表单如input 留言框等
+
+块级元素：div h1-h6 ，，但P标签不能包含其他块级元素
+        独占一行；一行只能显示一个
+        高度，宽度，外边距及内边距都能控制
+        宽度默认是容器的宽度
+        相当于一个容器盒子，里面可以放行内或块级元素
+
+行内元素：span a  文本格式化标签...   但a标签可以包含其他任何元素，最好将a转为块级元素
+        相邻行内元素在一行上，一行可以显示多个
+        高宽直接设置无效
+        默认宽度由内容的撑开
+        行内元素只能容纳文本或其他行内元素
+
+行内块元素： img  三个表单元素（input select textarea）  td
+        既有块元素的性质，又有行内元素的性质
+        可以直接设置宽高，内外边距和对齐属性（块元素）
+        默认宽度由内容的撑开
+        一行可以显示多个,但会有空白隔开（行内元素）
+
+三种元素转换：display
+        行内元素转换成块级元素：display: block;
+        块级元素转换成行内元素：display: inline;
+        块级，行内转换成行内块元素：display: inline-block；
+
+盒子内文字：
+        (line-height)行高等于盒子高度，文字居中对齐
+        (line-height)行高大于盒子高度，文字乎偏下
+        (line-height)行高小于盒子高度，文字会偏上
+
+背景图片：
+         background-color  背景颜色,默认是透明的
+         background-image  背景图片,url写图片地址,
+背景平铺(重复)：
+         background-repeat: repeat   图片默认的平铺
+         background-repeat: no-repeat  背景图片不平铺
+         background-repeat: repeat-x 背景图片横向平铺
+         background-repeat: repeat-y 背景图片纵向平铺 
+
+背景方位：
+    background-position: x坐标 y坐标;
+    注意：如果x和y两个都是方位词，那么两个值的顺序无关，效果一样
+    background-position: right top; 右上角
+    background-position: left bottom; 左下角(bottom下)
+    background-position: center center;  水平垂直居中
+    注意：如果只指定一个方向，那么另一个方向默认为center
+    background-position: left; 靠左，垂直居中
+    注意如果是精确坐标，那么第一个是x，第二个是y
+    background-position: 20px 50px;
+
+背景固定或滚动：
+        background-attachment 
+        scroll 滚动
+        fixed 固定 （一般用于body  盒子里设置背景固定的话会以body为位置参照）
+
+背景样式综合简写：
+background：背景颜色  背景图片地址  背景平铺  背景滚动  背景位置;
+如：background：#ccc   url（）  no-repeat   fixed   center top;
+
+背景透明：
+        background: rgba(0, 0, 0,0.1)
+        rab a 的取值是0-1
+        一般习惯把 0.1 写成 .1
+        半透明只是盒子背景半透明，内容不受影响
+	opacity：0；盒子全透明
+      （  opacity属性 接属性值  0.1-1  也会变成半透明，但会影响内容）
+
+盒子模型：
+盒子模型有：元素内容, 边框（border), 内边距（padding）,外边距（margin）
+盒子中的文字和图片等元素就是=内容区域
+盒子的厚度为=边框
+盒子内与边框的距离为=内边距
+盒子与盒子的距离为=外边距
+
+边框样式：
+     border-width  边框粗细，单位是px
+     border-color  边框颜色
+     border-style  边框样式:  默认为none
+            	solid   边框为单实线
+            	dashed  边框为虚线
+            	dotted  边框为点线
+综合写法：边框粗细，边框样式，边框颜色；如：
+    border: 5px solid pink;
+
+指定边框：
+            /* 上边框 */
+            border-top: 5px solid red;
+            /* 左边框 */
+            border-left: 5px dashed gold;
+            /* 右边框 */
+            border-right: 5px dotted green;
+            /* 下边框 */
+            border-bottom: 5px solid purple;
+
+相邻边框合并： 且不重叠
+border-collapse: collapse;
+
+内边距： 
+  左边距 ,其他位置同理： padding-left: 10px;
+  复合写法，简写：
+  padding: 20px;     一个值,上下左右都是 20px 
+  padding: 10px 20px;      两个值 上下 10px  左右 20px  
+  padding: 10px 20px 30px;     三个值 上 10px 左右 20px 下 30px
+  padding: 10px 20px 30px 40px;    四个值 上 10px 右 2opx 下 30px 左 40px 按顺时针 
+
+解决盒子被内边距撑大问题：        
+盒子的实际大小 = 内容宽度和高度 + 内边距 + 边框    
+特例：如果盒子没有给定宽度，那么给盒子指定内边距不会被撑开盒子
+
+外边距：
+  左边距 ,其他位置同理：margin-left: 10px;
+  复合写法，简写：
+  margin: 20px;     一个值,上下左右都是 20px 
+  margin: 10px 20px;      两个值 上下 10px  左右 20px  
+  margin: 10px 20px 30px;     三个值 上 10px 左右 20px 下 30px
+  margin: 10px 20px 30px 40px;    四个值 上 10px 右 2opx 下 30px 左 40px 按顺时针
+
+让块级盒子水平居中： 1.盒子必须指定宽度 width 2. 左右外边距都为 auto
+三种方法：
+    1. margin-left: auto;  margin-right: auto;  
+    2. margin: auto;
+    3. margin: 0 auto;
+
+  清楚元素默认的内外边距： ！！！CSS第一句声明！！！
+注意：为了照顾兼容性，行内元素不设置上下内外边距，尽量只设置左右内外边距
+* {
+       padding: 0;
+       margin: 0;
+   }
+
+（上下）
+垂直外边距：如果垂直的两个盒子都设置了外边距（margin），那么，合并的外边距取其大者
+解决方案：尽量只给一个盒子添加外边距
+
+（嵌套）
+嵌套块元素垂直外边距（margin）的合并塌陷：
+两个嵌套的块元素（大盒子嵌小盒子），如果父元素没有上内边距或者边框，那么
+父元素的上边距会与子元素的上边距合并，取其大者
+（也就是说，父元素没有上内边距或者边框，子元素设置了上边框会带动父元素）
+解决方案：
+1.给父元素定义上边框，但父盒子的高度会增加
+2.给父元素定义上内边距，padding也会撑大盒子
+3. 添加 overflow：hidden（溢出隐藏）， 不会撑大盒子，但会隐藏溢出部分
+
+圆角边框： border-radius: length;     length是长度  如：10px等
+    border-radius: 10px 20px 30px 40px
+    跟四个值，分别表示左上角，右上角，右下角，左下角，  顺时针
+    border-radius:10px 20px
+    跟两个值表示，左上角右下角为10px  右上角左下角为20px  ， 对角线
+
+分开写为：
+左上角：border-top-left-radius
+右上角：border-top-right-radius
+右下角：border-botton-right-radius
+左下角：border-botton-left-radius
+
+原理：四个角会被半径为 length长度的圆弧形切割
+
+圆形的做法：正方形高度的一半  或者数值为50%
+圆角矩形的做法：矩形高度的一半
+
+盒子阴影：    box-shadow：
+盒子阴影不占空间
+h-shadow  必需  水平阴影
+v-shadow  必需  垂直水平阴影
+blur   模糊距离 （虚实）
+spread   阴影尺寸  （大小）
+color  阴影颜色    一般阴影颜色喜欢用 rgba来设置 如：
+         box-shadow：10px 10px 10px 10px ragb（0,0,0，.3）
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+inset  将外部阴影改为内部阴影
+
+文字阴影：    text-shadow
+h-shadow  必需  水平阴影
+v-shadow  必需  垂直水平阴影
+blur   模糊距离 （虚实）
+color  阴影颜色    同上盒子阴影
+
+传统网页布局三种方式：
+1.  普通流（标准流）：标签按照规定好的默认方式排列
+2.  浮动
+3.  定位
+
+float浮动布局：    多个块级元素纵向排列找标准流，多个块级元素横向排列找浮动
+float属性用于创建浮动框，将其移动到一边，直至左边缘或右边缘触及包含块或另一个浮动框的边缘
+float属性值：
+	none 默认值  不浮动
+	left  元素向左浮动
+	right  元素向右浮动
+
+float浮动特性：
+1.  脱离标准普通流的控制（浮）移动到指定位置（动），俗称脱标
+2.  浮动的盒子不再保留原先的位置
+3.  多个盒子设置了浮动，他们会按照属性值一行内显示并且顶端对齐排列
+     注意：  浮动元素是互相贴在一起的，没有缝隙；若父级盒子装不下，则多出的另起一行对齐
+4.  浮动元素会具有行内块元素的特性。
+    任何元素都可以浮动，不管什么元素，添加浮动后会具有行内块元素的相似特性
+  （1）块级盒子没有设置宽度，默认宽度和父级一样宽，但添加了浮动后，宽度大小根据内容决定
+  （2）行内块设置了浮动，则不用转换成块级或行内块元素就可以直接设置宽高
+  （3）浮动的盒子中间没有缝隙
+
+float布局注意点：
+1.  浮动和标准流的父盒子搭配
+	先用标准流父元素排列上下，之后的内部子元素采取浮动排列左右位置
+2.  一个元素浮动了，理论上其余兄弟元素也要浮动
+	浮动盒子只会影响后面的标准流，不会影响前面的标准流
+
+清除浮动：  
+clear：属性值
+	left   清除左侧浮动的影响
+	right  清除右侧浮动的影响
+	both  同时清除左右两侧浮动的影响
+父级盒子不方便给高度，但子盒子浮动不占位置，最后父级盒子的高度会为0，影响到下面的标准流盒子
+
+清除浮动的本质：清除浮动的本质是清除浮动元素造成的影响
+1.  如果父级盒子有本身有高度，则不需要清除浮动
+2.  清除浮动之后，父级会根据浮动子盒子自动检测高度，有了高度就不会影响下面的标准流
+
+清除浮动的策略是：  闭合浮动，只让浮动在父盒子内部影响，不影响外面的其他盒子
+
+为什么要清除浮动：
+1.  父级盒子没有高度
+2.  子盒子浮动了
+3.  影响下面布局了，我们就应该清除浮动
+
+清除浮动的方法：
+1.  额外标签法（隔墙法）
+          在浮动子元素的后面再添加一个空标签定义类名， 再往css里写清除样式
+clear：both；
+          注意：添加的的空标签必须是块级元素
+          优点：通俗易懂，缺点：添加了许多无意义的标签
+2.  父级添加 overflow 属性
+	给父级添加 overflow: hidden/auto/sroll；
+	优点：代码简洁；缺点：无法显示溢出部分
+3.  父级添加 after 伪元素
+.clearfix:after {
+	content:"";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix {	 /* IE6, 7 专有 */
+	*zoom: 1;
+}
+使用方法：在父级元素定义类名 clearfix ；
+优点：没有增加标签，结构更简单
+缺点：需要照顾低版本浏览器
+4.  父级添加双伪元素
+.clearfix:before，
+.clearfix:after{
+	content:"";
+	display: table;
+}
+
+.clearfix:after{
+clear: both;
+}
+
+.clearfix {	 /* IE6, 7 专有 */
+	*zoom: 1;
+}
+使用方法：在父级元素定义类名 clearfix ；
+优点：代码更简洁
+缺点：需要照顾低版本浏览器
+
+position定位：将盒子定在某一位置，定位也是摆放盒子，按照定位的方式移动盒子
+position定位 = 定位模式 + 边偏移
+    定位模式指定元素的定位方式，边偏移则决定了该元素的最终位置
+
+边偏移的四个属性值：
+	top： 接距离单位 px  顶部偏移  
+	bottom：接距离单位 px  底部偏移
+	left：接距离单位 px  左侧偏移
+	right：接距离单位 px  右侧偏移
+
+position的四个属性值：
+        1.static   静态定位
+  特点： position：static； 
+ （1）默认定位方式：无定位的意思（相当于标准流盒子），没有边偏移属性
+
+        2.relative 相对定位
+  特点： position：relative；
+  （1）相对定位在移动位置的时候，是相对于自己原来的位置而不是父元素（参照点为原来的位置）
+  （2）移动后，他原来的位置仍然保留（不脱标）
+
+        3.absolute  绝对定位
+   特点： position：absolute；   加了绝对定位的盒子，margin：auto 不能居中
+  （1） 若没有祖元素或者祖元素没有定位，则以浏览器（document文档）为准定位
+  （2） 若祖元素以定位（相对，绝对，固定定位），则以最近一级有定位的祖元素为参考点移动位置
+  （3） 定义了绝对定位，那么盒子原先的位置则不再保留（脱标）
+
+        4.fixed  固定定位
+   特点：position：fixed；
+  （1） 以浏览器的可视窗口为参照移动
+  （2） 跟父元素没有任何关系
+  （3） 不随滚动条滚动
+  （4） 固定定位不占有原先位置（脱标）
+
+固定定位小技巧：  固定在版心右侧的位置
+1.  人固定定位的盒子left：50%，走到浏览器可视区（版心）的一半位置
+2.  再让固定定位盒子 margin-left：版心宽度的一半距离。这样就可以实现固定定位盒子贴着版心右侧对齐
+
+        5.粘性定位
+    特点： 选择器 { position：sticky；top：10px；}
+1.  以浏览器的可视窗口为参照点移动元素（固定定位的特点）
+2.  粘性定位占用原先的位置（相对定位的特点）
+3.  必须添加 top，left，right，bottom 其中一个才有效
+	与页面滚动搭配，但兼容性较差，IE不支持
+子绝父相：
+  1. 子元素绝对定位不会占有位置，可以放在父盒子里的任何地方，不会影响到其他盒子
+  2. 父盒子需要加定位限制子盒子在父盒子内显示
+  3. 父盒子布局时，需要占有位置（否则子元素会以文档对齐），因此父级只能是相对定位
+
+定位叠放次：选择器 { z-index: 1;}  
+使用定位时可能会出现盒子重叠的情况，此时可以用 z-index 来控制盒子前后顺序
+特点：
+1.  数值可以是正整数，负整数或0，默认是auto 数值越大，盒子越靠上
+2.  如果属性值相同，则按照书写顺序，后来居上
+3.  数字后面不能加单位
+4.  只有定位盒子才有 z-index 属性
+
+绝对定位盒子居中：
+添加了绝对定位的盒子不能通过 margin: auto；水平居中
+水平居中做法：
+    1.  left：50%；让盒子左侧偏移到父级元素水平中心位置
+    2.  margin-left：负数px；让盒子向左侧偏移自身宽度的一半，就能实现水平居中
+垂直居中做法：
+    1.  height：50%；让盒子向下偏移到父级元素垂直中心位置
+    2.  margin-top：负数px；让盒子向上侧偏移自身高度的一半，就能实现垂直居中
+
+定位拓展：
+绝对定位和固定定位会脱标，因此于浮动类似：
+1.  行内元素添加绝对定位或固定定位，可以直接设置宽高
+2.  块级元素添加绝对定位或固定定位，不给宽高的话，默认大小是内容的大小
+3.  脱标的盒子不会触发外边距合并问题（浮动，绝对定位，固定定位）
+
+浮动于绝对定位和固定定位的区别：
+1. 浮动定位只会压住下面标准流的盒子而不会压住盒子里的文字
+PS: 浮动不会压住文字是因为浮动最初的目的是为了实现文字环绕效果，文字围绕浮动元素
+2. 绝对定位和固定定位会完全压住下面的盒子包括盒子的内容
+
+
+显示与隐藏：
+元素的显示与隐藏：让一个元素在页面中隐藏或显示出来
+display：none；隐藏对象，隐藏后不再占有原来位置
+display：block；除了转换成块级元素之外，还有显示元素的意思
+
+visibility：visible；  元素可视   
+visibility：hidden；元素隐藏，隐藏后位置仍然保留
+如果隐藏元素想要原来的位置就用visibility，不需要则用display
+
+overflow属性： 溢出
+1. visible   默认属性，不剪切内容也不显示滚动条（在盒子外部显示）
+2. hidden  溢出隐藏，将溢出的部分隐藏起来
+3. scroll  不管内容是否溢出都显示滚动条
+4. auto  内容自动显示滚动条，不溢出不显示
+
+精灵图 sprites：
+目的：为了有效地减少服务器接收和发送请求的次数，提高页面的加载速度
+核心：
+1.  精灵图主要针对小的背景图片使用
+2.  主要借助背景位置来实现  --- background-position 
+3.  一般情况，精灵图都是负值。  （网页中的坐标，X轴右边走是正值，左边走是负值，Y轴同理）
+用法： 定义背景图片，background-position定位图片位置
+
+字体图标 iconfont：
+PS：  展示的是图标，本质属于字体
+优点：
+1.  轻量级   图标字体要比一系列图像要小，一旦字体加载，图标马上渲染出来，减少了服务器请求
+2.  灵活性   本质是文字，可以随意改变颜色，产生阴影，透明效果，旋转等
+3.  兼容性   几乎支持所有浏览器
+     下载-font放到html文件，引用css  index复制图片，调用
+总结：
+1.  遇到结构和样式比较简单的小图标，用字体图标
+2.  遇到结构和样式复杂一点的小图片，用精灵图
+
+
+用户界面：
+鼠标样式：li {cursor：pointer；}
+1. default  小白 默认样式
+2. pointer 小手
+3. move 移动
+4. text 文本
+5. not-allowed  禁止
+
+取消表单轮廓：  outline；  input{outline：none；}
+文本域取消拖动：  resize；  textarea {resize: none; }
+
+font-size=0；处理行内块之间的空白缝隙。
+
+行内块和文字垂直居中对齐：vertical-align：
+1.  baseline  默认，元素放在父元素的基线上
+2.  middle  把此元素放置在父元素的中部
+3.  top   把元素的顶端于行中最高元素顶端对齐
+4.  bottom  把元素的顶端于行内最低元素顶端对齐
+
+图片底部空白缝隙解决方法：
+1.  给图片添加  vertical-align:middle | top | bottom 等
+2.  将图片转化为块级元素  display:block;
+
+单行文本溢出显示省略号：
+              /* 强制一行内显示文本： */
+            white-space: nowrap;
+	/* 溢出隐藏： */
+            overflow: hidden;
+               /* 文字省略号代替超出部分： */
+            text-overflow: ellipsis;
+          
+
+多行文本溢出显示省略号：  兼容性差
+ 	overflow: hidden;
+            text-overflow: ellipsis;
+            /* 弹性伸缩盒子模型展示 */
+            display: -webkit-box;
+            /* 限制在一个块元素显示的文本行数 */
+            -webkit-line-clamp: 2;
+            /* 设置或检索伸缩盒子对象的子元素的排列方式 */
+            -webkit-box-orient: vertical;
+
+
+无序列表li，当添加浮动后边框会叠加，此时给li设置左外边距为-1即可
+鼠标经过显示边框另一种颜色，但因为-1px的原因，有一边框不会变色；
+做法：
+1.  如果盒子没有使用定位；给li添加相对定位即可，（定位会压住浮动）
+2.  如果盒子使用了定位，则利用z-index提高层数
+
+直角三角形：
+            width: 0;
+            height: 0;
+            border-color: transparent red transparent transparent;
+            border-style: solid;
+            border-width: 22px 8px 0 0;
+
+
+HTML5 新特性：
+header：头部标签
+nav： 导航标签
+article： 内容标签
+section： 定义文档某个区域
+aside： 侧边栏标签
+footer：尾部标签
+
+
+视频标签：video  MP4格式（兼容性比较好）  ogg格式   webm格式
+<video src="文件地址"  controls="controls"><video>
+属性：
+SRC： URL     文件地址
+autoplay：autoplay  视频自动播放 （谷歌要添加muted才能自动播放，但音频添加了也没有用）
+muted：muted  静音播放
+controls：controls   显示播放控件（暂停键，进度条，全屏等）
+width： 像素大小    设置播放器宽度
+height：像素大小    设置播放器高度
+loop：loop   循环播放
+preload：auto预先加载视频/none 不预加载视频   （如果有autoplay，这个属性可以忽略）
+poster： 加载等待的画面图片
+source  src 。。。视频格式
+音频标签：audio   MP3格式（兼容性好）  wav格式  ogg格式
+<audio src="文件地址" controls="controls"></auto>
+属性：
+SRC： URL     文件地址
+autoplay：autoplay  自动播放  （谷歌将自动播放禁用了，要放添加controls）
+controls：controls   显示播放控件
+loop：loop   循环播放
+
+表单伪类选择器：  表单选中时
+input：checked{
+}
+input新属性：使用form表单域包裹会有验证格式
+type="email" 	限制用户输入必须为email类型
+type="url"	限制用户输入必须为URL类型
+type="date"	限制用户输入必须为日期类型
+type="time"	限制用户输入必须为时间类型
+type="month"	限制用户输入必须为月类型
+type="week"	限制用户输入必须为周类型
+type="number"	限制用户输入必须为数值类型
+type="tel"	手机号码
+type="search"	搜索框
+type="color"	生成颜色选择表单
+type= “range”  max=100 min= 0 step=10  滑动条，
+
+新表单属性：
+required：required    内容不能为空
+
+placeholder  提示文本  ，输入文字提示文本将不显示
+更改文本的颜色：input::placeholder{color：xxx}
+
+autofocus：autofocus    页面加载完成自动聚焦到指定表单
+
+autocomplete：off/on     一般关闭，涉及到隐私
+是否展开输入记录，on 打开 off 关闭 
+
+multiple：multiple  可以多选文件提交/与file配合使用
+
+CSS3新增选择器：
+1. 属性选择器
+div[class]    	 div标签且有class属性
+div[class="val"]	 div标签有class属性，且属性等于val
+div[class^="val"]	 div标签有class属性，且属性开头等于val
+div[class$="val"]	 div标签有class属性，且属性结尾等于val
+div[class*="val"]	 div标签有class属性，且属性含有val
+
+2. 结构伪类选择器          ：not（：nth-child（n））不选n
+E代表标签元素   如：ul li:first-child {        }
+E:first-child 	匹配父元素的第一个子元素
+E:last-child  	匹配父元素的最后一个子元素
+E:nth-child(n)	匹配父元素的第n个子元素    n可以是数字，也可以是公式
+直接写数字就是第几个；even偶数，odd奇数 
+公式： n从0开始计算
+	2n 选择所有偶数
+	2n-1 选择所有奇数
+	5n  ：5 10 15...
+	n+5   从第五个开始
+	-n+5  前五个
+E:first-of-type   匹配父元素的第一个子元素
+E:last-of-type   匹配父元素的最后一个子元素
+E:nth-of-type（n）   匹配父元素的第n个子元素    n可以是数字，也可以是公式
+
+E:nth-child(n)与E:nth-of-type（n）的区别
+1.  nth-child会把所有盒子排序，执行时先看第几个（n）再看标签（E元素）
+2.  nth-of-type会把指定的盒子排序，执行时先看指定标签（E元素），在选择第几个（n）
+
+3. 伪元素选择器
+语法：element（标签）：：before{  }    直接通过标签在css样式里运用
+如 div：：before { content：' '}  content里面输入内容
+：：before  在元素内部的前面插入内容
+：：after	    在元素内部的后面插入内容
+before和after创建一个元素，属于行内元素，但在文档里是找不到的，故称伪元素
+before和afte必须有content属性
+
+盒子模型：
+box-sizing: content-box;   盒子大小为：width+padding+border(以前默认的)
+box-sizing: border-box;     盒子大小为：width
+
+图片模糊处理：
+filter：函数（）；  如：（过滤）filter：blur（5px）；
+blur  模糊处理，数值越大越模糊
+灰度：filter：grayscale（50%）  0-100%  
+
+盒子宽度计算函数：calc
+width：calc（100% - 30px）   子盒子永远比父盒子小30px
+ 减号前后需要加空格 ； 可以  加减乘除  
+
+CSS3过渡（变化过度） transition
+transition：变化属性，花费时间，运动曲线  何时开始；
+  变化属性：宽度高度，背景颜色，内外边距 ，多个属性都想变化写 all
+  花费时间：单位秒 s  如0.5s
+  运动曲线：ease（可以省略）
+  何时开始：单位秒，可以设置延迟触发时间，默认0s  （可以省略）
+
+transform 转换
+
+1. 移动：translate（x，y）；
+translateX（）；只移动x轴
+translateY（）；只移动y轴
+重点：不会影响其他元素位置，对行内标签没有效果，接百分比参数是自身宽高的大小
+
+盒子水平居中垂直居中：transform: translate(50%, 50%);  
+
+2. 旋转：rotate（）；里面跟度数 deg  如360度  rotate（360deg）；
+旋转中心是元素的中心点，角度为正顺时针，反之逆时针
+
+设置旋转中心点：transform-origin
+transform-origin：x  y；空格隔开
+默认中心是（50%  50%）等价于center center
+还可以给 x y设置像素，或者方位名词（left right top bottom）
+左下角则是transform-origin：left bottom；......
+
+3. 缩放：scale（x，y）；
+transform:scale（1,1）   宽高缩放1:1 相当于没有缩放
+transform:scale（2,2）   宽高放大两倍 
+transform:scale（2）    等比例缩放可以简写
+transform:scale（0.5,0.5） 缩小一半
+scale 不会影响其他盒子，可以设置缩放中心点，也可以设置1.1 1.2等
+
+4.  倾斜： skew（xdeg，ydeg）  水平倾斜垂直倾斜
+
+transform综合写法：
+transform: translate()  rotale()  scale() ;
+有位置顺序，先移动，再旋转，后缩放；  移动一定要先写在前面
+
+动画序列： form（0%）动画的开始，to（100%）动画的完成
+定义动画：keyframes（关键帧）
+@keyframes 动画名称 {
+0%{
+	width：100px
+      }
+100% {
+	width：200px
+           }
+}
+也可以增加0%  25%  50%  75%  100%来分成四个部分，百分1-100都可以
+ 调用：
+animation-name: 动画名称；
+animation-duration: 持续时间；
+animation-delay: 0s;   开始时间
+animation-timing-function: linear;  匀速运动， 默认是ease
+animation-iteration-count: infinite;  无限循环  默认值是1
+animation-direction:alternate;     逆向播放    默认值是normal
+animation-fill-mode: forwards;  动画结束后停止结束位置，默认值是 backwards 回到原点
+animation-play-state: paused;  暂停动画，默认的是running一直运行，通常与hover配合使用
+动画简写：
+animation：动画名称，持续时间，运动曲线，何时开始，播放次数，是否反方向，起始或结束状态
+
+速度曲线步长： steps
+steps（）将动画分成几步完成
+
+
+透视： perspective（）；接  数值px
+网页上想实现3D效果，需要加透视
+透视写到被观察的父盒子上
+
+3D转换：
+3d移动：
+translateZ( );    正前负后
+简写：translate3d(x,y,z)；  简写里面的值不能省略，没有要写0
+3d旋转：
+rotateX()；  旋转方向可看成单杠旋转
+rotateY()；  旋转方向可看成钢管舞
+rotateZ()；  （转盘）和2d旋转效果一样
+简写：rotate3d（x，y，z，deg） 旋转其中一个轴，其他两个轴为0，若两个都有取中间
+
+3D呈现：
+transform-style  默认是flat 不开启
+控制子元素开启3d立体模式：  代码写给父盒子，作用的是子盒子
+transform-style: preserve-3d; 
+

@@ -1,0 +1,399 @@
+面向过程（pop）： 分析解决问题所需要的步骤。然后用函数把这些步骤一步一步实现，使用时依次调用
+如: 将大象放进冰箱：1.打开冰箱；2.把大象装进去；3.关上冰箱门。
+优点：性能比面向对象高，适合与硬件联系很紧密的东西
+缺点：没有面向对象易维护，易复用，易扩展
+
+
+面向对象（oop）： 把事务分解成一个个对象；然后由对象之间分工合作。
+如：将大象放进冰箱：
+1.大象对象   进去功能
+2.冰箱对象   关闭功能
+3.使用 大象和冰箱的功能
+
+面向对象是以对象功能来划分问题，而不是步骤
+优点：灵活性，代码复用，容易维护和开发
+特性：封装性，继承性，多态性
+
+面向对象的思维特点：
+1.抽象（抽取）对象共用的属性和行为封装成一个类
+2.对类进行实例化，获取类的对象
+
+类：class关键字声明的
+类抽象了对象的公共部分，泛指某一大类
+对象特指某一个，通过实例化一个具体的对象
+
+
+类constructor构造函数：
+constructor（）方法是类的构造函数，用于传递参数，返回实例化对象，通过关键字new自动调用该方法
+
+继承：
+1.  混入式继承：遍历父对象,将父对象的所有成员添加给子对象， 缺点：不适合多数量操作
+ for(let key in father) {           
+            son[key] = father[key];
+        }
+
+2.  替换原型继承: 将父对象作为子对象的原型,    缺点：无法保存原来对象的成员
+ Person.prototype = obj;
+
+3.  混合式继承:  遍历父对象,将父对象的成员添加给子对象的原型
+ for(let key in obj) {
+            Person.prototype[key] = obj[key];
+        }
+
+类的继承：
+extends关键字： 继承父类的属性和方法
+
+super关键字：相当于父类构造类，用于在子类中传递给父类的参数，s
+子类添加自定义属性，使用this，super传参需要写在this前面
+super调用父类的构造函数，必须在子类的this前调用
+super . 方法名（）   调用父类的普通函数
+
+
+继承中，实例化子类输出一个方法，先看子类有没有这个方法，如果有输出子类的，
+没有就查看父类，有再输出父类的（就近原则）
+
+
+类的注意点：
+1.  es6里没有变量提升，必须先定义类，才能通过类实例化对象
+2.  类的共有属性和方法一定要加this使用
+
+input.select();	文本框的内容出于选定状态
+
+
+禁止双击选中文本：
+window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty(); 
+
+插入：
+insertAdjacentHTML（position，text）
+
+position： 位置，参数如下：
+1.  beforebegin	元素自身的前面
+2.  afterend	元素自身的后面	
+3.  beforeend	插入元素内部的最后一个子节点之后
+4.  afterbegin	插入元素内部的第一个子节点之前
+
+text： 要被解析为HTML或XML，并插入DOM树的字符串
+
+构造函数和原型：
+
+构造函数的属性和方法称为成员
+1.实例成员是构造函数内部通过this添加的成员，实例成员只能通过实例化对象来访问
+2.静态成员，在构造函数本身添加的成员，如通过Obj.age =10,添加的，静态成员只能通过构造函数来访问
+
+构造函数的缺陷：  浪费内存的
+当通过new创建对象，构造函数的里的方法是复杂数据类型，不同对象会开辟不同的存储空间，
+
+原型对象：prototype
+构造函数通过原型分配的函数是所有对象所共享的
+每一个构造函数都有一个prototype属性
+用来存储公共的方法，直接定义在prototype对象上，从而实现共享
+
+对象原型：_ _proto_ _
+对象都会有一个属性 __proto__指向构造函数的prototype原型对象
+__proto__对象原型和原型对象的prototype是等价的
+
+construction 构造函数
+对象原型：__proto__和构造函数的prototype原型对象都有属性construction，他指向构造函数本身
+
+原型对象可以重新赋值
+
+通过构造函数名.prototype来修改原型对象，不要使用实例化对象.proto来修改原型对象
+实例化对象访问原型中的成员变量，是访问修改前还是修改后，取决于这个对象是在修改前实例化还是修改
+
+
+如果修改了原来的原型对象，给原型对象赋值的是一个对象，那么需要手动利用construction指回原来的构造函数
+construction：构造函数名
+
+JavaScript成员的查找规则：
+1.  当访问一个对象属性或方法时，首先查找对象自身有没有该属性
+2.  如果没有就查找他的原型（__proto__指向的prototype原型）
+3.  如果还没有找到则查找原型对象的原型（Object的原型对象），以此类推一直到object为null为止
+
+在构造函数中，this指向的是对象实例，原型对象函数里的this，也指向实例对象
+
+
+数组方法：
+
+1. 遍历（迭代）   forEach	
+array . forEach(function(Value, index, arr)){ }
+currentValue：数组当前项的值
+index： 数组当前项的索引
+arr： 数组对象本身
+
+ let sum= 0
+        arr2.forEach(function(value) {
+            sum += value
+        })
+
+2. 筛选数组： filter（function(Value, index, arr)）{ }     返回一个新数组
+currentValue：数组当前项的值
+index： 数组当前项的索引
+arr： 数组对象本身
+
+ let arr1 = arr.filter(function(value) {
+            return value % 2 == 0  
+        })
+
+3.  查找数组元素是否满足条件 ： some（function(Value, index, arr)）{ }
+找到第一个则停止查找；返回的是布尔值，查找到返回true ，查不到返回 false
+currentValue：数组当前项的值
+index： 数组当前项的索引
+arr： 数组对象本身
+
+ let flag = arr.some(function(value) {
+            return value == 20  
+        })
+
+filter和some的区别：
+filter也是查找满足条件的元素，但filter返回的是数组，并将满足的元素都返回
+some 返回的是布尔值，当找到第一个满足元素即终止循环，
+
+forEach和some 的区别：
+forEach里使用return不会终止遍历，而some里的return true 就是终止遍历，  迭代效率更高
+
+4. map 快速处理好数据
+map（function(Value, index, arr)）{ }
+
+ let newArr = arr.map(function(value) {
+            return {name: value.name,  gender: value.gender }
+        })
+
+万能检测数据类型法 :
+        Object.prototype.toString.call(数据)
+
+字符串方法：
+str.trim()  从字符两端删除空白字符，返回的是新数组
+
+对象方法：
+Object.defineProperty(),定义对象中新属性或修改原有属性
+
+Object.defineProperty(obj , prop , descriptor)
+
+obj：必要参数，目标对象
+prop：必要参数，定义或修改的属性的名字
+descriptor：必要参数
+
+descriptor： 以对象形式书写
+1. value : 	  	 设置属性的值，默认为undefined
+2. writable : 	 值是否可以重写，true false 默认false  为false不允许修改
+3. enumerable : 	 目标属性是否可以被枚举（遍历） ，true false 默认false ，为 false不允许遍历
+4. configurable :	 目标属性是否可以被删除或再次修改特性 true false 默认false，为false不允许被删除或再次修改特性
+
+Array的拓展方法：
+1.Array.from（'伪数组', 函数）	将伪数组转成真数组
+   第二个参数是函数，作用是对伪数组的每个元素进行处理，可以省略
+
+2. find方法 查找数组里的第一个符合的元素，找到则将这个成员，没找到返回undefined
+find（function(Value, index)）{ }
+
+let arr = [{
+            id: 1,
+            name: '张三'
+        }, {
+            id: 2,
+            name: '李四'
+        }]
+
+        /* let target = arr.find(function(item, index) {
+            return item.id == 2
+        }) */
+
+        // 箭头函数版
+        let target = arr.find(item => item.id == 2)
+        console.log(target); // {id: 2, name: "李四"}
+
+3.  findIndex方法查找满足条件第一个的元素，返回的是他的下标
+findIndex（function(Value, index)）{ }
+
+         let arr = [5, 8, 10, 15]
+        let index = arr.findIndex(value => value >= 10)
+        console.log(index);  // 2
+
+4. arr . includes（） 查找数组包含某个元素，有返回true，没有返回false
+[1,2,3]. includes（2） // true
+[1,2,3]. includes（5） // false
+
+
+字符串拓展语法：
+1. startWith（）  endWith（）  
+判断字符串是否是以参数 xxx开头或xxx结尾，返回布尔值
+
+2. repeat（n）方法	
+将原字符串重复n次，返回新字符串
+
+
+改变this指向：
+1.  call()语法： 函数名.call(this修改后的指向，arg1,arg2…………)
+	常用于继承
+
+2.  apply()语法：函数名.apply(this修改之后的指向,伪数组或者数组)  
+	常用于与数组有关的，如求数组最大最小值
+
+3.  bind()语法：函数名.bind(this修改后的指向,arg1,arg2....)
+    bind()语法并不会立即执行函数，而是返回一个修改指向后的新函数,常用于回调函数，如：定时器
+
+
+严格模式：
+1.  为脚本开启严格模式
+在所有语句之前加  "use strict"/  'use strict' 
+
+严格模式的变化：  没有八进制
+1.  变量规定：变量必须先声明，然后再使用
+2.  严禁删除已经声明的变量。 如 delete xx 语法是错误的
+3.  全局作用域（普通函数）函数this指向是undefined
+4.  严格模式下，如果构造函数不加new调用（相当于普通函数），this会报错，因为this指向undefined
+5.  定时器的this依然指向 window
+6.  函数参数不能出现同名
+7.  不能在非函数的代码块里声明函数
+
+
+高阶函数： （典型：回调函数）
+  对其他函数进行操作的函数，他接收函数作为参数，或者将函数作为返回值输出
+
+闭包函数:     是一个子函数,可以让外界直接使用局部作用域的变量
+        //         不会造成内存浪费, 比直接用return要更好一些
+
+有权访问另一个函数作用域中变量的函数
+
+闭包的作用，延伸了变量的作用范围（在外部访问局部变量）
+
+
+递归函数：  一个函数在内部可以调用本身
+
+PS:    函数内部自己调用自己，这个函数就是递归函数
+
+
+浅拷贝和深拷贝：
+1.  浅拷贝只是拷贝一层，更深层次对象级别值拷贝引用地址
+浅拷贝拷贝的复杂数据类型是地址，拷贝的值修改的话，原来的对象里的值也会被影响
+
+2.  深拷贝拷贝多层，每一级别的数据都会拷贝
+深拷贝是将数据重新开辟一个内存空间，修改拷贝后的值不会影响原来的
+
+3.  Object . assign(target,...sources)   es6新增拷贝 （浅拷贝）
+      target 要拷贝的对象   sources 被拷贝的对象
+
+
+正则表达式：	用于匹配字符串中字符组合的模式，js中正则表达式也是对象
+
+正则：通常被用来检索，替换那些符合某个模式（规则）的文本，正则里内容不需要加‘’号
+如：	
+	1.  验证表单，用户名只能输入英文字母，数字，下划线；昵称可以输入中文（匹配）
+	2.   还可以过滤敏感词（替换），
+	3.从字符串获取我们想要的特定部分（提取）
+
+
+检测字符串是否符合正则规范： 返回true false
+regexObj . test(str)
+
+regexObj ： 写的是正则表达式
+str ：	     测试的文本
+
+边界符：
+1.  ^  表示以 xxx 开始
+2.  $   表示以 xxx 结尾	^和$一起用，必须是精确匹配才返回true
+
+字符类：
+/[abc]/ 	  只要里面包含abc中任何一个都匹配
+/[^abc]/     只要里面有任意一个不是abc的都匹配
+
+1.  [ ] 有一系列字符串可以选择，匹配其中一个就返回true
+2.  /^[abc ]/         以abc其一开头的就返回true
+3.  /[abc ] $/         以abc其一结尾的就返回true
+4.  /^[abc ]$/       三选一：只有满足三个里面的其中一个才返回true
+5. /^[a-z ]$/         26个英文字母中任何一个才返回true 
+6. /^[a-zA-Z0-9]$/    英文字母大小写,数字0-9都可以
+PS：如果[ ]里有^表示取反的意思，里面包含的内容都为false
+
+量词符：
+*     相当于 >=0		重复零次或更多次
++    相当于 >=1		重复一次或更多次
+？   相当于 1 || 0		重复零次或一次
+{n}  			重复n次
+{n,}     大于等于n		重复至少n次
+{n,m}  大于等于n,小于等于m	重复n到m次
+PS： 当 {n} 前面是字符串时，代表将字符串最后一位重复n次
+         当希望将前面的字符串全都重复三次需要添加（）包裹字符串
+
+预定义类：
+\.	除了回车和换行之外的所有字符
+\d	验证是否有数字			相当于[0-9]
+\D	验证是否有除数字以外的字符		相当于[^0-9]
+\w	验证是否有字母数字下划线		相当于[A-Za-z0-9_]
+\W	验证是否有字母数字下划线以外的字符	相当于[^A-Za-z0-9_]
+\s	匹配空格（包括换行符,制表符,空格符）    相当于[\t\r\n\v\f]
+\S	匹配非空格字符			相当于[^\t\r\n\v\f]
+
+验证是否是常用汉字：	/[\u4e00 - \u9fa5]/
+
+正则表达式替换：str.replace( /表达式/参数  ，'替换的字符)
+如：str.replace( /cnm|sb/g , ' * ' )
+PS:正则的里的逻辑或 只用一个 |  表示
+
+正则表达式的参数:  /表达式/参数
+参数：
+g：  全局匹配
+i ：  忽略大小写
+gi： 全局匹配且忽略大小写
+
+- 贪婪模式：正则表达式在匹配成功的前提下，尽可能多的匹配（默认模式）
+- 非贪婪模式:正则表达式匹配成功的前提下，尽可能少的匹配（在量词后面加上 ?）
+
+
+箭头函数：
+箭头函数中不使用关键function 在()后面添加"=>"
+        let fn2 = () => {
+            console.log('我是箭头函数');
+        }
+        fn2()
+
+如果函数体只有一句代码,则{}也可以省略  如果只有一句代码,并且代码的结果就是返回值,则return省略
+
+         let fn3 = (num1, num2) => {	
+            return num1 + num2
+         }
+
+可以省略成如下代码：
+        let fn3 = (num1, num2) => num1 + num2
+        console.log(fn3(10, 20));
+
+        如果只有一个参数的时候,小括号也可以省略
+        let fn4 = uname => console.log('你好呀,' + uname);
+        fn4('kk')
+
+箭头函数的this关键字：
+箭头函数没有自己的this关键字，箭头函数中使用this指向箭头函数定义位置中的this
+
+剩余参数：
+箭头函数不能使用argument关键字接收不定数量的参数，
+那么，箭头函数想要接收不定数量的参数，要使用剩余参数，如下：
+let fn = （...args）=>{}
+
+
+const关键字定义
+1. const关键字具有块级作用域
+2. 声明常量时要赋值，否则会报错
+3. 使用const关键字声明简单数据类型的值不能修改
+    使用const关键字声明复杂数据类型的地址不能修改，但可以修改里面的值
+
+var let const 关键字的区别：
+1.  var  		没有块级作用域    存在变量提升（预解析）  值可以被修改
+2.  let   		有块级作用域       不存在变量提升     	    值可以更改
+3.  const   	有块级作用域       不存在变量提升                值不可更改
+
+Set数据结构：
+类似于数组，但成员都是唯一的，没有重复的值；
+Set本身是一个构造函数
+创建set数据结构： 里面可以接收一组数据作为初始值
+let s = new Set（[x,x,x]）
+s.size获取当前set 数据有几个元素，如下：
+
+let s = new Set([1, 2, 3, 4])
+        console.log(s); // Set(4) {1, 2, 3, 4}
+        console.log(s.size); // 4
+
+set数据方法：
+1. add（value）  		添加某个值，返回set结构本身
+2. delete（value）		删除某个值，返回布尔值，代表删除是否成功
+3. has（value）		判断该值是不是set里的成员；返回布尔值
+4. clear（）		清除所有set成员  

@@ -1,0 +1,145 @@
+博客网：https://www.boxuegu.com/freecourse/detail-1605.html
+查文档：MDN https://developer.mozilla.org/zh-CN/
+
+HTML超文本标记语言含义：
+1.可以加入图片，声音，动画，多媒体等内容（超越文本限制）
+2.还可以从一个文件跳跃转到另一个文件，与世界各地主机的文件链接（超链接文本）
+
+web标准构成：结构，表现和行为三个方面
+结构用于对网页元素进行整理和分类（html）
+表现用于设置网页元素的版式，颜色，大小等外观样式（css）
+行为是指网页模型的定义及交互的编写（JavaScript）
+结构可以看成一个人的身体，表现看成着装，行为看成人的动作
+
+盒子标签
+div 一行只能放一个div（会自动换行）
+span 一行可以放好多个（不会自动换行）
+
+文本标签：
+标题标签：h1—h6
+段落标签： p
+分割线标签：hr
+换行标签：br
+预格式化标签：pre
+&nbsp；空格标签    &gt；大于号      &lt； 小于号
+加粗效果：strong    倾斜效果：em    加入下划线：ins     加入删除线：del
+
+路径标签：
+/ 下一级路径； ../  上一级路径  ；上上级则是 ../../
+
+图片标签：
+<img src="" alt=""  title=""  width=""  height=""  border=>
+        src URL  图像的路径
+        alt 文本  图像不能显示时的替换文本
+        title 文本  鼠标悬停时显示的内容
+        width 像素  设置图片的宽度
+        height 像素  设置图片的高度
+        border 数字  设置图片边框的宽度
+
+链接标签：
+<a href="跳转目标" target="目标窗口的弹出方式">文本或图像</a>
+        href 指定链接目标的url地址（必须属性）
+        target 指定链接页面的打开方式；默认值self(在本窗口打开)
+                blank在新窗口打开
+    外部链接要添加 http://
+        如果暂时没有指定的目标链接，href值可以用 # 表示一个空链接
+
+    下载链接，只要引入安装包或者压缩包，就会自动变成下载链接
+整体链接打开方式设置：<base target="_blank">
+
+锚点定位法：
+先找到目标位置 如：<h3 id="festival">圣诞是怎么由来的</h3> ；id名称则表示锚点
+<a href="#festival"><h1>圣诞节的由来</h1></a>
+    创建点击的链接文本，href后接 # id号
+
+表单标签：（表格是用来显示数据的）
+表格标题标签：caption 且必须跟在 table 标签后一行
+
+可以用thead  tbody  tfoot  分别表示表单的头，中，尾，使节构更清晰
+
+table 定义一个表格 属性有：
+            1.border 表格的边框； width 表格宽度 height 表格高度
+            2.align (left center right)表格的对齐方式
+            3.cellspacing 单元格之间的空白间距
+            4.cellpadding 单元格内容与单元格边框的空白间距
+tr 定义表格中的行，嵌套在table里
+td 定义表格中的单元格，嵌套在tr里
+表头单元格可以用 th 来居中加粗显示
+
+表格合并：
+跨行合并： rowspan= "合并单元格的个数"
+跨列合并： colspan= "合并单元格的个数"
+合并单元格三步曲：
+        1.确定是跨行还是跨列
+        2.根据先上后下，先左后右找到目标单元格，
+        3.删除合并剩下的多余的单元格
+
+列表布局标签：
+ul 无序列表：
+ul 里只能嵌套 li ，没有顺序区分
+        li 相当于容器，放啥都行
+<ul>
+         <li></li>
+</ul>
+        
+ol 有序列表：
+        ol 里只能包含 li 有顺序区分
+         li 相当于容器，放啥都行
+<ol>
+         <li></li>
+</ol>
+
+dl 自定义列表： 
+        dl 里面有 dt和 dd ，其中 dd是围绕 dt展开的
+<dl>
+         <dt>
+             <dd></dd>
+         </dt> 
+</dl>
+
+表单标签：
+input type = text    是一个文本框
+input type = password    是一个密码框
+checked 是一个默认选择
+name是指定表单的名称，以区分多个表单
+input type = radio    是一个单选框
+input type = checkbox    是一个多选框，也叫复选框 
+input type = button    是一个普通按钮
+input type="reset"    是重置按钮
+input type="submit"    是提交按钮
+    只会提交所在表单域带有name属性的元素
+input type="image" src=...     是图片提交按钮
+input type="file"    是上传文件用的
+input type="hidden"  隐藏的输入字段
+
+name 表单名称，数据传入后台时，用于区分每个表单
+    value 表单的默认显示值    ，，value的显示值需要删掉再重新输入
+    placeholder="请输入查询条件..."    ，，这个相比value是直接输入便可替代默认的显示值
+checked 默认选中项
+maxlength  限制输入框最大输入字符
+
+label标签的运用：
+	作用：页面点击表单元素就能获得输入焦点
+	用法1：如： <label>用户名：<input type="text"></label><br>，不能出现for属性直接包起来
+	用法2：<label for="user"> 用户名：</label>   for 接的值与 input 的 id 对应
+     	<input type="text" id="user">
+
+textarea文本域：clos列能放几个字 rows有几行，超过会出现下拉
+    与文本框相比可以写多行文字，场景运用于用户留言框（评论区）
+textarea竖着写的话，空格也会出现，尽量横着写   如  pre标签
+<textarea>留言板</textarea>
+
+下拉表单
+select 接 option 为下拉列表，有多个选项选择，节约空间
+标签里接，selected 表示默认选中
+value是传给后台看的
+<select>
+        <option></option>
+</select>
+
+form表单域：
+《form action=“url地址”method=“提交方式” name=“表单名称”》
+action接 url 地址 用于指定接收并处理表单数据的服务器程序的url地址
+method接  get/post 用于设置表单数据的提交方式，post比较保密
+name 接 名称  用于指定表单的名称，以区分同一个页面的多个表单
+ 

@@ -1,0 +1,372 @@
+JavaScript库：即library，是一个封装好的特定集合（方法和函数）
+
+常见js库：
+1.jQuery；prototype；YUI；Dojo；Ext JS；移动端的zepto
+
+jQuery的优点：
+1.  轻量级，免费开源
+2.  跨浏览器兼容
+3.  链式编程，隐式迭代
+4.  对事件。样式，动画支持，大大简化了DOM操作
+5.  支持插件扩展开发，丰富的第三方插件  如：树形菜单，日期控件，轮播图
+
+等页面加载完毕在执行js代码：
+1.    $(function() {
+          
+        })
+
+2.  $(document).ready(function() {
+          
+        })
+
+顶级对象：(jquery的简写)  $   相当于原生JS的 window
+
+
+
+DOM对象和jQuery对象
+1.  DOM对象：  用原生JS获取的对象就是DOM对象
+2.  jQuery对象：  用jQuery方式获取的对象就是jQuery对象。  
+3.  jQuery对象只能用于使用  jQuery方法，DOM对象则使用原生JS的属性和方法
+
+jQuery对象本质：通过$把DOM元素进行了包装, 以伪数组的形式存储
+
+DOM对象和jQuery对象的相互转化：
+1.  DOM对象转成jQuery对象
+（1） 直接获取：  $('DOM对象')
+（2）  已经通过DOM获取的对象： $(DOM对象)       
+
+2.   jQuery对象转成DOM对象
+（1）$('div')[index]   	index是索引号
+（2）$('div').get(index)	index是索引号（不常用）
+
+
+获取标签文本：  原生里的innerText
+ . text（）
+ . text（）里面有内容则是设置文本内容
+
+.html（）	 原生里的innerHTML
+.html（） 里面有内容则是设置文本内容
+
+获取表单的值：
+.val（）
+.val（） 里面有内容则是设置表单内容
+
+在下拉框中，有value属性则获取value属性的值，即使value值为空；没有value属性则获取内容
+设置下拉框的值来设置选中状态，优先匹配value值，没有vaue值匹配内容，匹配不到显示空
+
+去除空格和缩进：
+.trim()
+
+获取被选中的表单元素：
+$('xx：checked') 
+
+保留n位小数：
+. toFixed(n)    保留n为小数
+
+jQuery选择器：
+ $("选择器")
+1. ID 选择器 	 $("#id")
+2. 全选		 $('*')
+3. 类选择器	 $(".class")
+4. 标签选择器	 $("div")
+5. 并集选择权 	 $("div,p,li")
+6. 交集选择器	 $("li.red")
+7. 子代选择器	 $("ul>li")
+8. 后代选择器	 $("ul li")
+
+隐式迭代：
+把所有匹配的元素内部进行遍历循环，给每个元素添加css 
+
+筛选选择器：
+:first		$('li:first')		获取第一个li元素
+:last		$('li:last')		获取最后一个li元素
+:eq(index)	$('li:eq(2)')	获取里元素中，索引号为2的元素，里面只能接纯数字
+:odd		$('li:odd')		获取li元素中，索引号为奇数的元素
+:even		$('li:even')	获取li元素中，索引号为偶数的元素
+
+方法:
+		
+.parent（）	父级：
+.parents（''）	寻找祖元素，不接参数查找所有，
+.children（'li'）	子级：选择最近一级的（亲儿子），括号不接参数筛选所有，
+.siblings（'li'）	兄弟：除自身以外的亲兄弟，	       括号不接参数筛选所有，
+.find('li')      	相当于后代选择器，将符合的后代都选出来，接*代表所有
+.next（）		下一个兄弟
+.prev（）		上一个兄弟
+.nextAll()		当前元素之后的同辈元素	
+.prevAll()		当前元素之前的同辈元素
+.eq(index)	相当于选择器的：eq， index是索引号
+
+得到元素的索引号： $(this).index()
+
+
+修改样式CSS方法：
+1.  修改简单元素样式使用css；
+如：$('div').css('color', '#90f')
+
+ 如：使用对象的形式存储
+$('div').css（{
+    width:200
+    height:200
+    color:'red'
+}）
+
+2.  修改多个样式操作类.     与className 的区别：不会影响原有的类名
+添加类：$('').addClass        添加多个类名使用空格隔开
+
+删除类：$('').removeClass()    不传参移除所有类名，传参只移除指定的
+
+切换类：$('').toggleClass()  	（有就变成删除，没有就添加类）
+
+查找是否含有某个特定的类，如果有，返回true
+hasClass（class）
+
+jQuery效果：
+
+1.  显示隐藏效果：  参数都可以省略，无动画直接显示
+显示
+（1）  show（[speed，[easing],[fn] ]）
+隐藏
+（2）hide（[speed，[easing],[fn] ]）
+切换
+（3）  toggle（[speed，[easing],[fn] ]）
+
+speed：速度：       	  slow慢   normal无  fast块    还可以接数字表示  毫秒
+easing： 切换效果：  默认swing，可用参数linear
+fn：回调函数，动画完成时执行的函数，每个元素执行一次；
+
+2.  滑动效果
+（1）下拉效果    
+   	sildeDown（[speed，[easing],[fn] ]）
+（2）上拉效果
+  	 sildeUp（[speed，[easing],[fn] ]）
+（3）切换效果
+   	slideToggle（[speed，[easing],[fn] ]）
+
+speed：速度：       	  slow慢   normal无  fast块    还可以接数字表示  毫秒
+easing： 切换效果：  默认swing，可用参数linear
+fn：回调函数，动画完成时执行的函数，每个元素执行一次；
+
+事件切换
+hover({over,}out)
+over：鼠标移入触发的函数（相当于mouseenter） 
+out：鼠标离开触发的函数  （相当于mouseleave）
+结构：
+$('').hover( function(){}，function(){} )（前一个over，后一个out）
+
+如果只写一个函数，那么鼠标经过和离开都会触发这个函数,搭配slideToggle（），同样也有这个效果
+$('').hover( function(){
+xxxxx  . slideToggle()
+}）
+
+停止动画排队：	stop() 
+注意：stop() 要写到动画或者效果的前面，相当于停止上一次动画
+
+
+淡入淡出效果：
+1. fadeIn（[speed，[easing],[fn] ]）淡入效果
+speed：速度：       	  slow慢   normal无  fast块    还可以接数字表示  毫秒
+easing： 切换效果：  默认swing，可用参数linear
+fn：回调函数，动画完成时执行的函数，每个元素执行一次；
+
+2. fadeout（[speed，[easing],[fn] ]）淡出效果
+
+3. fadeToggle（[speed，[easing],[fn] ]）淡入淡出相互切换
+
+4. fadeTo（[speed，opacity，[easing],[fn] ]） 渐进方式调整透明度
+
+fadeTo里 speed，opacity参数必须写
+speed：  slow慢   normal无  fast块    还可以接数字表示  毫秒 
+opacity透明度，0-1之间
+
+
+自定义动画：
+animate（params，[speed，[easing],[fn] ]）
+ 
+params：想要更改的样式；以对象形式传递，必须参数
+speed：速度：       	  slow慢   normal无  fast块    还可以接数字表示  毫秒
+easing： 切换效果：  默认swing，可用参数linear
+fn：回调函数，动画完成时执行的函数，每个元素执行一次；
+
+
+属性操作：
+
+固有属性：       能获取设置布尔属性，
+1.  获取属性： prop（'属性'）
+2.  设置属性： prop（'属性', '属性值'）
+
+自定义属性：  attr不能获取布尔属性，如单选多选框
+1.  获取属性： attr（'属性'）
+2.  设置属性： attr（'属性', '属性值'）  设置多属性： attr（{xx:xxx,aa:aaa}）
+3.  attr（）也可以获取h5的data自定义属性值，
+attr（data-index）  获得的是字符串类型
+
+4. 删除属性：removeAttr（'xx'）    参数：需要移除的属性名，删除多个用空格隔开
+
+数据缓存：  存储的数据不会显示在dom结构里，而是存在元素的内存中
+1.  获取属性： data（'属性'）
+2.  设置属性： data（'属性', '属性值'）
+也可以获取data-index ，返回的是数字类型
+data（index）  获得的是字符串类型
+
+
+元素操作：
+1.  遍历DOM对象each()
+PS：隐式迭代是对同一类型的元素做同样的操作，想给同一类型元素做不同操作则需要遍历
+$('div').each(function(index, domEle) {}
+
+函数里有两个参数，第一个是索引号，第二个是每个dom元素，使用jq方法时，需要转成jq对象
+如：
+ let arr = ['#f90', '#09f', '#f09']
+    $('div').each(function(index, domEle) {
+
+        // dom对象使用jq方法要转换成jq对象
+        $(domEle).css('background', arr[index])
+    })
+
+2. 常用于遍历数据，也可以遍历对象，遍历对象时index是属性名，domEle是属性值
+$ . each($('div') ， function(index, domEle) {}
+
+2.  创建元素
+$('<li></li>')
+html('<li></li>')      会覆盖原有的子元素
+
+3.  添加元素
+
+内部添加：（父子关系）
+ B appendTo A		在被选元素的结尾插入内容  B添加到A里的末尾  
+ B prependTo A		在被选元素的开头插入内容  B添加到A里的前面
+与下面作用一样
+
+$('xx').append(li)		添加到末尾    （剪切）
+$('xx').prepend(li)		添加到最前面 （剪切）
+
+外部添加：（兄弟关系）
+$('xx').before（div）	添加到目标元素的前面
+$('xx').after（div）		添加到目标元素的后面
+
+4.  删除元素
+$('xx').remove（）  		删除元素本身
+
+$('xx').empty（）		清除内部所有元素，及内部注册过的事件（节省内存空间）
+
+$('xx').html（' '）		清空元素里所有内容，但不会清除内部注册过的事件
+
+5.  克隆元素
+$('xx').clone()		传不传true都会克隆其内容，传true会把事件也一起克隆
+
+
+尺寸方法：
+
+width（）/height（）	宽度/高度值
+
+innerWidth（）/innerHeight（）   宽高，包含内边距
+
+outerWidth（）/ outerHeight(）   宽高，包含内边距，边框
+
+outerWidth（true）/ outerHeight(true） 宽高，包含内边距，边框，外边距
+PS:  括号不接参数是获取，接参数是设置（修改）
+
+位置方法：
+1.   获取或设置距离文档偏移坐标位置： 
+offset()          有top和left两个属性	获取的是相当于文档的偏移坐标，与父级没有关系
+      
+设置（修改）：offset（{top:100,left:100}）
+获取单一位置：offset().top  offset().left
+
+2.  获取距离有带定位父级的偏移位置：
+position（），只能获取不能修改，父级没有定位以文档为准
+
+3.  获取过设置元素被卷去的头部或左侧距离，
+scrollTop（）
+scrollLeft（）
+
+设置：scrollTop（xx）接参数则是设置
+运用：返回浏览器顶部且带动画效果：  动画操作的只能是元素
+$(body,html).stop().animate({ scrollTop:0 });    动画操作的只能是元素,不能是document
+
+获得页面滚动距离：只有html window document才行
+
+事件注册：
+单事件注册：
+$('xx').click(function( ){ })
+
+多事件注册：on
+$('xx').on(events,[select],fn)
+events: 事件： 一个或多个用空格隔开 
+select：元素的子元素选择器
+
+on注册事件委托：
+表示给$('ul')绑定代理事件，当必须是它的内部元素li才能触发这个事件，支持动态绑定
+$('ul').on( 'click','li', function() {});
+
+
+事件解绑：
+1.   解绑xx元素的所有事件
+$('xx').off();
+
+2.   解绑xx元素的所有click事件
+$('xx').off('click');
+
+3.  解除事件委派
+$('xx').off('click'，'li');
+
+只触发一次事件：
+$('xx') . one('click',function( ){ }) 
+
+自动触发事件：
+1.  元素 . 事件()     		      如： $('xx') . click()
+
+2.  元素 . trigger('事件')  	      如： $('xx') . trigger()
+
+3.  元素 . triggerHandler('事件')     如： $('xx') . triggerHandler()     不会触发元素的默认行为
+
+
+事件对象：
+$('xx') . on('click',function( event ){ }) 
+
+阻止默认行为：event . preventDefault（ ） / return false
+
+阻止冒泡：event  . stopPropagation( ) 
+
+对象拷贝：
+$('xx') . extend（[deep] , target  obj, [obj n ]）
+
+deep: true 深拷贝  默认为false 浅拷贝
+target： 目标对象
+obj： 被拷贝的对象 1 - n
+
+PS:  一样的数据会被覆盖，不一样的会合并到一起
+       浅拷贝是把拷贝对象的复杂数据类型的地址拷贝给目标对象，目标对象 修改值 的话会影响被拷贝的对象
+       深拷贝是完全克隆，修改值  不会影响被拷贝的对象
+
+多库共存：
+问题：其他js库可能也使用$作为标识符，这样使用就会出现冲突的情况，后面覆盖前面
+log($.prototype.jquery)  查看当前$版本
+
+解决方法：让jq与其他js库不冲突，可同时存在使用，这就叫多库共存
+1.  jq里的 $ 符号可以同一改写成 jQuery，如 jQuery（'div'）
+
+2.  jq释放$ 符号权限：  let xx = $noConflict( )    相当于自定义将 xx 替换 $ 符号
+
+
+jQuery插件：
+网站： 	jQuery插件库  www.jq22.com/
+	jQuery之家   www.htmleaf.com
+
+步骤：
+1.  引入相关文件（jQuery文件和插件文件）
+2.  引入相关html ，css ， js
+
+
+图片懒加载：  
+当页面滑到可视区域，再显示图片
+(优点：图片延迟加载可以提高网页下载速度，减轻服务器负载) 
+
+常用插件：EasyLazyload   js引入文件和js调用必须写到DOM元素（图片）最后面
+
+
+全屏滚动：
+gitHub:  https://gitHub.com/alvarotrigo/fullPage.js
+网站：www.dowebok.com/demo/2014/77/
+常用插件：fullpage.js

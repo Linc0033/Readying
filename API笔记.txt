@@ -1,0 +1,511 @@
+Web API 是浏览器提高一套操作浏览器功能和页面元素的API（BOM和DOM）
+
+API 是为我们提供一个接口，帮助我们实现某种功能，学会使用就好，不用纠结内部如何实现
+Web API主要针对浏览器提供的接口，针对于浏览器做交互效果
+Web API一般都有输入和输出（函数的传参和返回值），Web API很多都是方法（函数）
+
+DOM：document文档   object对象  model模型
+文档对象模型（简称DOM），是W3C组织推荐的处理可扩展标记语言的标准编程接口
+
+文档：一个页面就是一个文档，DOM中石油document表示
+元素：页面的所有标签都是元素，DOM中使用element表示
+节点：页面中所有元素都是节点（标签，属性，文本，注释），DOM使用node表示
+DOM把以上内容都看做是对象
+
+
+获取页面元素：
+
+1.  根据ID获取：
+
+ document.getElementById('')
+特点：
+（1）文档页面从上往下加载，script要写在标签下面
+（2）get获得element元素by通过    使用驼峰命名法
+（3）参数id是区分大小写的字符串
+（4）返回的是一个元素对象
+
+2.  根据标签名获取
+
+ document.getElementsByTagName('')   获取的是页面里所有的此元素
+特点：
+（1）.  	返回的是获取过来的元素对象的集合，以伪数组形式存储，单个也一样
+
+（2）.  	得到的是对象的集合，所以想要操作里面的元素需要遍历，
+	且得到元素对象是动态的，随着元素内容改变而改变
+
+（3）.  	如果页面中没有此元素，返回的是空的伪数组
+
+element（父元素）.getElementsByTagName('')   获取某个元素（父元素）内的所有子元素
+父元素必须是单个对象（必须指明是哪一个元素对象）
+
+3.  通过name属性获取：
+name属性一般设置给表单比较多，主要用于表单元素获取
+document.getElementsByName('')
+
+3.  通过HTML5新增方法获取
+（1）.  根据类名获取：
+	document.getElementsByClassName('')
+	返回的是获取过来的元素对象的集合，以伪数组形式存储，
+
+ CSS选择器：
+（2）.  返回指定选择器的第一个元素，这个新增的选择器需要说明是什么选择器，如 .box  #box
+	document.querySelector('')
+
+（3）.  返回指定选择器的所有元素
+ 	document.querySelectorAll('')  
+
+4.  特殊元素获取
+（1） 获取body标签：
+	 document.body
+
+（2） 获取html标签：
+	 document.documentElement
+
+事件：
+1.事件源 ： 	事件被触发的对象
+2. 事件类型：	如何触发 如：鼠标点击（onclick），鼠标经过，键盘按下等
+3.事件处理程序：	通过函数赋值方式完成
+
+执行事件步骤：
+1.  获取事件源
+2.  注册事件（绑定事件）
+3.  添加事件处理程序（采取函数赋值形式）
+
+鼠标事件：
+onclick		 鼠标点击触发
+onmouseover 	 鼠标经过触发
+onmouseout	 鼠标离开触发
+onfocus		 获得鼠标焦点触发
+onblur		 失去鼠标焦点触发
+onmousemove	 鼠标移动触发
+onmouseenter	 鼠标移动触发
+onmouseup	 鼠标弹起触发
+onmousedown	 鼠标按下出发
+
+mousemove和mouseenter 的区别：
+mousemove经过自身和子盒子都会触发（冒泡）；
+mouseenter经过自身才会触发（不会冒泡）；mouseenter通常与mouseleave（不冒泡）搭配使用。
+
+修改元素内容：  表单的
+1.  element.innerText   
+2.  element.innerHTML
+
+innerText  和 innerHTML的区别：
+0.  .textContent	获取文本内容；不识别标签，自己设置时有标签会把标签当成字符串
+1.  innerText 	获取文本内容；不识别标签，自己设置时有标签会把标签当成字符串
+2.  innerHTML 	识别标签，且读写时会把标签，空格和换行显示出来
+
+修改元素属性：
+src，herf ，id alt title等：
+如： img.src = '../images/1.jpg';  
+
+获取表单被选中的个数
+document.querySelectorAll('input:checked')    
+
+修改表单属性）：   
+ element.value   	  表单的文字要通过value 来修改
+ element.defaultValue    获得value的默认值
+ element.focus()	获得焦点
+
+布尔属性：
+ element.checked  	  
+ element.selected	  
+ element.disable     	  按钮禁用
+一般使用  this.disabled = true   this 指向事件函数的调用者
+
+修改样式属性（大小，颜色，位置等）
+element.style	      行内样式操作
+类名样式操作：
+1.  element.className	  默认覆盖原来的类名
+如果想保留原来的类名 className += ‘ 添加的类名’ 但设置的时候会出现重复添加的情况
+
+2.  element.classList.add('')	 只会添加一次，不会出现重复添加情况
+
+3.  element.remove（''）    删除类名
+
+4.  element.classList.toggle（'clsB'）  没有类名添加，有的话移除（切换）
+
+js里面的样式采用驼峰命名法。如：fontSzie，backgroundColor
+js的行内样式操作，产生的是行内样式，css权重比较高
+
+
+排他思想：  如果有同一组元素，某一个元素实现某种样式
+1.  将所有元素清除样式 （先干掉其他人）
+2.  设置当前元素样式  （留下自己）
+
+
+获取属性值：
+
+1.  element . 属性     
+获取的是内置属性值（元素本身自带的属性）id class 等
+
+2.  主要获得自定义属性，认为定义的属性，不适合用于多个值的class，会覆盖
+element . getAttribute('属性')    get得到，attribute 属性
+ 
+3.  设置/修改属性值：
+element . 属性 = ‘值’  		设置内置属性
+element . setAttribute('属性' , '值')	设置自定义属性
+
+4.  移除属性值：
+element . removeAttribute('属性')
+
+自定义属性：  
+以 data-开头作为属性名并且赋值        ie11 以上支持，兼容性较差
+如 <div date-index = "1"></div>
+或者使用JS设置：  element . setAttribute（'data-index' , 2）
+
+如果自定义属性使用了date-开头，那么 获取 属性值可以用 :
+element . dataset . 属性名 
+element . dataset['属性名']
+注意： <div date-list-name = "1"></div>
+如果类名长要使用这个方法的话  ：element . dataset . listName  采用驼峰法链接
+
+增加自定义属性
+element . dataset . 属性名  = xxx  
+删除自定义属性
+delete（element . dataset . 属性名）
+
+
+节点操作：利用父子兄弟节点关系获取元素 
+
+节点属性： 
+1.  nodeType（节点类型）
+2.  nodeName （节点名称）
+3.  nodeValue （节点值）
+
+元素节点  nodeType 为1 
+属性节点  nodeType 为2
+文本节点  nodeType 为3（文本节点，空格，换行）
+
+父节点：
+node . parentNode
+返回的是节点  最近的一个的父节点 ，如果没有父节点返回null
+
+子节点：
+1 .  parentnode . children  获取所有子元素节点
+2 .  parentnode . childNodes   获取所有子节点，包括 元素节点，文本节点，（文字，换行等也会包含）
+一般我们只需要获得子元素节点，所有不推荐使用这个
+
+parentNode.firstChild()  获得第一个子节点，不管是文本节点还是元素节点
+parentNode.lastChild()  获得最后一个子节点，不管是文本节点还是元素节点
+
+parentNode.firstElementChild  获取第一个子元素节点  
+parentNode.lastElementChild   获取最后一个子元素节点
+
+实际常用：通过获得所有子元素的下表来获取  最后一个元素是 children.length - 1
+parentNode.children[0]  
+
+兄弟节点：
+node.nextElementsibling  		获得下一个兄弟元素节点
+node.previousElementSibling  	获得上一个兄弟元素节点
+
+node.nextSibling    获得当前元素的下一个兄弟节点，没有返回null，获得的包含所有节点
+node.previousSibling   获得当前元素的上一个兄弟节点，没有返回null，获得的包含所有节点
+
+创建节点：
+document.createElement('tagName')    tagName html元素
+
+添加节点：
+1.  node.appendChild(child) 		将一个节点添加到指定父节点的子节点列表末尾
+2.  node.insertBefore(child , 指定元素)    将 child添加到父节点的指定子节点前面
+
+删除节点：
+node . removeChild(child)   	删除第一个子节点 
+
+替换节点：
+replaceChild(替换的节点，被替换的节点) 
+
+复制节点：
+node . cloneNode（）  括号为空或里面的false，代表浅拷贝，只复制标签不复制内容，接true的话就是全复制
+如：let li1 = ul.children[0].cloneNode() 
+
+replace
+document.write （）  创建元素，如果页面文档流加载完毕，在调用这句话会页面重绘
+element.innerHTML   创建多个元素，如果不使用拼接字符串而使用数组的话，效率比create更高
+document.creatElement()   创建多个元素效率比innerHTML使用数组效率稍低，但结构更清晰
+
+
+事件高级：
+
+注册事件：
+
+1.  传统注册方式
+以on 开头的事件，如onclick ，onmouseover 等
+特点： 注册事件唯一性，同一元素同一事件只能设置一个处理函数，后面的覆盖前面
+
+2.  方法监听注册方式
+evenTarget（元素） . addEventListener（type, listener, [userCapture]）
+特点：同一元素同一事件可以注册多个监听器
+type : 事件类型字符串，如click  mouseover  这里不需要带 on
+listener： 事件处理函数， 事件发生是，会调用改监听函数
+userCapture： 可选参数， 是布尔值，默认false（冒泡）true（捕获）  
+
+删除事件：
+1.  传统注册方式：
+evenTarget（元素）. onclick = null；
+
+2.  方法监听注册方式：
+evenTarget（元素）.removeEventListener('事件名',移除的函数名)
+
+DOM事件流：
+事件发生时会在元素节点之间按照特定的顺序传播，这个传播过程称为DOM事件流
+
+DOM事件流的三个阶段：  
+1.  捕获阶段    	从上往下：document -> html -> body -> element（点击元素）
+2.  当前目标阶段	
+3.  冒泡阶段	从下往上：element -> body -> html -> document
+
+event.eventPhase   获取事件传播的标识
+1代表捕获阶段  2代表目标阶段；3代表冒泡阶段
+
+
+事件对象 ：		event 一般简写成e
+1.  event就是一个事件对象，写到侦听函数的括号里面，当形参来看
+2.  只有有了事件存在才会有事件对象，他是系统自动创建的，不需要传递参数
+3.  event对象代表事件的状态，如键盘按键状态，鼠标位置，鼠标按钮等状态
+简单来说：事件发生后，跟事件相关的一系列信息数据的集合都放到event里，他有很多的属性和方法
+
+e/target  和 this 的区别：
+e/target  返回的是触发事件的对象， 而this 返回的是绑定事件的对象
+
+e.type  返回事件的类型，如click mouseover 等 
+
+阻止默认行为：  （阻止链接跳转或让提交按钮不提交）
+方法监听注册方式：  
+e.preventDefault();
+
+传统事件：
+e.preventDefault();  
+e.returnValue 	 针对低版本浏览器
+return 布尔值（false true）	false不跳转，true 跳转  缺点：后面的代码不执行，仅限于传统注册方式
+
+阻止冒泡：
+e. stopPropagandation（） 	propagation：传播
+
+低版本写法：   cancel 取消  bubble 泡泡
+e.cancelBubble= true
+
+事件委托（事件委派）：
+原理（重点）：不是每个子节点单独设置监听事件，而是事件监听器设置在其父节点上，利用冒泡原理影响每个子节点
+作用：只操作了一次DOM ，提高了程序性能
+
+
+禁止鼠标右键菜单
+  contextmenu  
+	 document.addEventListener('contextmenu', function(e) {
+            e.preventDefault()
+        })
+
+禁止选中文字
+selectstart
+      	  document.addEventListener('selectstart', function(e) {
+            e.preventDefault()
+
+        })
+
+鼠标事件对象：	MouseEvent
+1.  client	鼠标在可视区的x和y坐标
+e.clientX		返回鼠标相对于浏览器可视窗口的X坐标
+e.clientY		返回鼠标相对于浏览器可视窗口的Y坐标
+
+2.  page	鼠标在页面文档的x和y坐标
+e.pageX		返回鼠标对于文档页面X坐标
+e.pageY		返回鼠标对于文档页面Y坐标
+
+3.  screen	鼠标在电脑屏幕的x和y坐标
+e.screenX		返回鼠标对于电脑屏幕的X坐标
+e.screenY		返回鼠标对于电脑屏幕的Y坐标
+
+
+键盘事件：
+onkeyup		某个键盘按键被松开的时候触发，不区分大小写
+onkeydown	某个键盘按键被按下的时候触发   ，不区分大小写
+obkeypress	某个键盘按键被按下的时候触发   但不识别ctrl shift 方向键，区分大小写
+
+e.keyCode	得到相应键的ASCII码值
+
+BOM  浏览器对象模型
+把浏览器当做一个对象来看待
+
+BOM的顶级对象是window
+1.  他是JS访问浏览器窗口的一个接口
+2.  也是一个全集对象，定义在全局作用域的变量，函数都会变成window的属性和方法
+     但一半调用时都会省略window，alert，prompt 都是window的方法
+
+页面加载事件：  
+window . onload/load	当页面加载完毕才触发该事件
+如： window.addEventListener('load', function() {}
+
+DOMContentLoaded  是DOM加载完毕，不包含图片，falsh，css等就可以执行，加载比load块
+如：document.addEventListener('DOMContentLoaded', function() {}
+
+页面关闭事件：
+window . onunload/unload
+
+页面关闭之前事件：
+window . onbeforeunload
+
+新窗口事件：
+let wId = window.open(URL,id名，样式属性)    打开一个新窗口
+关闭： wId . close（）
+window . close() 关闭本身页面
+
+窗口大小事件：
+resize：  调整窗口大小加载事件，窗口大小发生变化就触发
+window.innerWidth		当前屏幕宽度
+通常用resize加上window.innerWidth	来实现响应式布局的效果
+
+回调函数：上一件事完毕再回头调用这个函数，setTimeout()也是回调函数
+
+定时器：
+setTimeout（调用函数，[延迟毫秒数]） 	  几秒钟后调用函数
+setInterval（调用函数，[间隔的毫秒数]）  每隔几秒调用函数
+
+停止定时器：
+clearTimeout（timeout ID）
+clearInterval（timeout ID）
+
+
+JS的执行机制：
+1.  JS是单线程，同一时间只能做一件事
+
+为了解决单线程问题，允许JavaScript脚本创建多个线程，就出现了同步和异步：
+
+同步：前一个任务结束再执行下一个任务
+同步任务：  主线执行线
+
+异步：一件事会花费很长时间，在做这件事的同时，还可以去执行其他事情
+异步任务：（任务队列）
+1.  普通事件；如： click  resize
+2.  资源加载；如： load  error
+3.  定时器，包括   setInterval  setTimeout
+
+执行机制：
+1.  先执行执行栈里的同步任务
+2.  异步任务（回调函数）放入任务队列中
+3.  一旦执行栈的所有同步任务执行完毕，系统会按次序读取任务队列的异步任务
+
+事件循环：主线程不断重复获得任务，执行任务，再获取再执行，就叫事件循环
+
+
+location 对象：	获取或设置窗体的URL，并可以用于解析URL
+
+URL：统一资源定位符；是互联网标准资源的地址
+protocol:    通用协议：http/ftp/maito
+host:	   主机（域名）www.xxx		
+port  	   端口号，默认80
+path	   路径 由零或多个 / 隔开的字符串，一般用来表示主机上的目录或文件地址
+query 	   参数，以&符合分隔开
+fragment    片段  # 后面内容常见于链接  锚点
+
+location 对象属性：
+1.  location.href		获取或设置  整个URL
+2.  location.host		返回主机（域名）
+3.  location.port		返回端口号
+4.  location.pathname	返回路径
+5.  location.search		返回参数
+6.  location.hash		返回片段   # 后面内容常见于链接  锚点
+
+location常见方法：
+ location.assign  （）	跳转页面，记录浏览历史，可以后退页面
+ location.replace（）	跳转页面，不记录浏览历史，不可后退
+ location.reload（）	刷新，括号接true为强制刷新
+
+navigator对象：
+识别用户用 PC还是手机登录页面
+userAgent ：    返回客户机发送服务器的user-agent头部值
+
+history对象：
+与浏览器历史记录进行交互，该对象包含用户（在浏览器窗口中）访问过的URL
+
+方法：
+1.  history . back（）	可以后退功能
+2.  history . forward（）	前进功能
+3.  history . go（参数）	前进后退功能，参数是1前进一个页面，-1后退一个页面
+
+
+screen对象：	记录当前屏幕的相关信息
+screen . width		屏幕宽度
+screen . height		屏幕高度
+screen . availWidth		可用宽度
+screen . availHeight	可用高度
+
+本地存储：  括号需要加引号
+localStorage . setItem(名，值）	存储本地
+localStorage . getItem(名）		读取本地存储的数据
+localStorage . removeItem(名）	删除本地存储的指定数据
+localStorage . clear（）		清空本地存储的数据
+
+sessionStorage . setItem(名，值）	存储本地
+sessionStorage . getItem(名）		读取本地存储的数据
+sessionStorage . removeItem(名）	删除本地存储的指定数据
+sessionStorage . clear（）		清空本地存储的数据
+
+localStorage 	 存储的数据会一直存在，直到人为删除
+sessionStorage 	 浏览器关闭数据就消失
+
+本地存储格式化：		本地存储只能存储文本数据，
+JSON . stringify()	  将数组对象转换成字符串
+JSON . parse()	  将字符串转换成数组对象
+
+
+offset家族属性：	返回结果不带单位，只能读取，不能修改
+offsetWidth 	获取元素的宽度（包括padding，border）
+offsetHeight	获取元素的高度（包括padding，border）
+
+offsetParent	用于获取相对位置的父元素
+1. 如果元素的定义方式是fixed ，那么offsetParent获取的是null
+2. 元素的定义方式不是fixed，获取是距离最近的带有定位的父元素，都没有则获取body
+
+offsetLeft  offsetTop  
+获取当前元素距离offsetParent的距离，包括margin
+返回结果没有单位，不能修改
+
+client家族：
+1.  clientTop	返回上边框大小
+2.  clientLeft	返回左边框大小
+3.  clientWidth	返回自身宽度（可视区域），包括padding，不包含边框，返回值不带单位
+4.  clientHeight	返回自身高度（可视区域），包括padding，不包含边框，返回值不带单位
+获取页面宽度：
+document.documentElement.clientWidth,
+
+scroll 系列：  返回值不带单位    可以设置滚动事件  onscroll
+1.  scrollTop	   返回被滚上去的距离，
+2.  scrollLeft	   返回被滚去的左侧距离
+3.  scrollWidth	   返回滚动内容宽度（可以滚动的实际宽度）不包含边框，
+4.  scrollHeight	   返回滚动内容高度，不包含边框，
+
+元素被卷去的：
+element . scrollTop
+element . scrollLeft
+页面被卷去的：
+window.pageYOffset  	返回页面被卷去的头部距离
+window.pageXOffset  	返回页面被卷去的左侧距离
+
+offset，client，scroll 三大家族：
+1.  获取元素位置找offset；获取元素大小用client；获取滚动问题用scroll
+2.  页面滚动找window.pageYOffset
+
+
+
+动画原理：  通过定时器 selInterval（）不断移动盒子位置
+
+H5新增小玩意：
+
+draggable = true    让元素具有拖拽效果   
+ 如：   
+ <div class="box" draggable='true'></div>
+box.addEventListener('dragstart', function() {}
+
+主动效果：
+ondragstart 	拖拽开始事件
+ondragend	拖拽停止事件
+ordrag		拖拽过程中触发的事件
+
+被动效果：
+ondragenter	有元素移入时触发
+ondragleave	有元素移出时触发
+ondragover	有元素被拖入持续触发
+ondrop		当被拖入元素在当前元素释放时，触发
+注意：ondrop要生效需要将ondragover阻止默认行为
+

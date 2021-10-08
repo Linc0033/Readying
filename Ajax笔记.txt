@@ -1,0 +1,341 @@
+URL： 又叫同一资源定位符，俗称网站
+
+URL一般由三部分组成：
+1.  通信协议：https
+2.  服务器名称：www.xxx.com
+3.  资源存放位置：.com后面的
+
+客户端与服务器之间的通信过程： 
+1.  客户端请求
+2.  服务器处理
+3.  服务器响应
+
+请求数据：
+let xhrObj = new XMLHttpRequest（）
+
+服务器的请求方式：
+1.  get  通常用于获取服务端资源（向服务器要资源）
+如：根据URL地址，从服务器获取html，css，js，图片，数据资源等
+
+2.  post  通常用于向服务器提交数据（向服务器发送资源）
+如：登录时提交登录信息，提交注册信息等
+
+什么是Ajax：在网页中利用XMLHttpRequest对象和服务器进行数据交互（异步，无刷新技术）
+
+
+Ajax的作用： 客户端对服务器发起网络请求的工具         实现网页与服务器之间的数据交互
+
+jQuery中发起Ajax请求的三个方法：
+1.  $.get(url，[data]，[callback])    	获取服务端资源
+    url: 	 	 要请求的资源地址（必要参数）
+    data：	 	 请求资源要携带的参数（发送给服务器的参数）
+    callback：	 请求成功时的回调函数
+
+2.  $.post(url，[data]，[callback])	向服务器提交数据
+
+3.  $.ajax({
+type：	' '，   		请求的方式
+url：	' ',	    	请求的url地址
+data：	{ },	   	请求要携带的数据
+success: function（res）{ }      请求成功之后的回调函数
+})
+
+传参方式：
+1. 利用对象传参：
+data: {
+  num: 10
+ },
+
+2. 利用字符串传参：
+ data: 'num=10',
+
+3. 利用接口地址拼接字符串参数(只有get请求支持)
+ url: xxxxxxxx?num=10
+
+
+接口： 使用Ajax是，被请求的URL地址，就叫做数据接口，每个接口必须有请求方式
+
+接口文档：接口的说明文档，是调用接口的依据，包含对 接口URL，参数，以及输出内容的说明
+组成：
+1.  接口名称：用来标识各个接口的简单说明，如：登录接口
+2.  接口URL：接口的调用地址
+3.  调用方式：接口的调用方式，如：get post
+4.  参数格式：接口需要传递的参数，每个参数必须包含参数名称，参数类型，是否必选，参数说明等
+5.  响应格式：接口的返回值，一般包含 数据名称，数据类型，说明等
+6.  返回示例（例子）
+
+
+form表单属性：
+1. action 属性 ：用来规定当提交表单是，向何处发送表单数据
+解释：
+   （1）. action属性的值是后端提供的一个URL地址，这个地址专门接收表单提交过来的数据
+   （2）. 表单没指定action属性时，action默认为当前页面的url地址，  
+   （3）. 当表单提交后会立即跳转到action属性指定的URL地址
+
+2.  target属性：用来规定在何处打开action URL
+可选值有5个：
+（1）_self    	在当前窗口打开
+（2）_blank	在新窗口打开
+（3）_parent	在父框架集中打开
+（4）_top	在整个窗口打开
+（5）framename	在指定框架中打开
+
+3.  method属性：用来规定以何种方式把表单数据提交到action URL
+可选值有两个：get 和post  默认为get
+（1）get方式，通过URL的地址形式，把表单数据提交到action URL里，
+         地址 ？  后面就是提交的数据，所以，get适合用来提交少量的，简单的数据（安全性不好）
+
+（2）post方式，适合提交大量的，复杂的，或包含文件上传的数据，
+
+
+4.  enctype属性： 用来规定在发送表单数据之前如何对数据进行编码
+可选值有三个：
+（1）application/x-www-form-urlencoded    发送前编码所有字符（默认）
+（2）multipart/form-data    	不对字符编码，在使用包含文件上传时，必须使用该值
+（3）text/plain		空格转换为 + 号，但不对特殊字符编码 （很少用）
+
+表单同步提交：
+缺点：
+1. form表单同步提交后，整个页面会发生跳转，跳转到action URL指向的地址，体验不好
+2. form表单同步提交后，页面之前的状态和数据会丢失
+
+解决方法：  表单只负责采集数据，Ajax负责将数据提交到服务器
+
+
+监听表单提交事件：
+$(表单名).on('submit',function(e)) { }
+
+阻止表单默认提交行为：
+event.preventDefault()
+
+一次性获取表单中的数据： 表单元素必须添加 name 属性 值为后台需要的关键字
+$('表单名') . serialize（）  	返回键值对的字符串
+
+快速清空表单信息：
+reset（）是dom方法，所以要把jq对象转成dom对象，加下表 [0]
+$('表单名')[0] . reset（）
+
+监听audio标签的播放状态：
+$('audio').on('play'.function(){}  	监听audio的播放事件
+$('audio').on('pause'.function(){}	监听audio的暂停事件
+
+
+
+模板引擎：
+步骤：
+1. 导入art-template
+2. 定义数据
+3. 定义模板：   模板要定义在script中，同时将script的type改为text/html
+4. 调用template函数： template（'模板id' , '渲染的数据对象'）
+5. 渲染html结构
+
+模板的值由占位符区分，如:    {{name}},  {{age}}
+
+标准语法 ——  输出：{{value}}  {{obj . key}}  {{a? b : c}}  
+在{{ }}中，可以进行变量输出，对象属性的输出，三元表达式 ，逻辑或  加减乘除等表达式
+
+标准语法—— 原文输出   当输出的值，包含html标签结构，需要加上 @
+{{@ value}}   
+
+标准语法—— 条件输出：   使用if   else if  ...  /if方式
+如下：
+{{if a == 0 }}
+   a = 0  // 条件成立输出的值
+{{else if a == 1 }}
+   a = 1
+{{/if}}
+
+标准语法—— 循环输出：  索引：$index   循环项：$value
+{{each arr }}   
+{{$index}}  ,  {{$value}}
+{{/each}}
+
+
+标准语法—— 过滤器：   过滤器本质是一个function处理函数
+{{value | 函数名}}   
+过滤器语法类似管道操作符，|   ；基础语法如下：  
+  template.defaults.imports.函数名 = function(value)  {retrun 处理的结果}
+注意：声明过滤器要写在调用template函数前面，不然会报错
+
+模板引擎原理：正则
+exec（）函数用于检索字符串中的正则表达式的匹配，有匹配值，返回匹配值，没有返回null
+RegExObject . exec（string）
+
+正则表达式（）包起来表示分组，通过分组提取自己想要的内容
+
+替换：str . replace（要替换的字符，替换的字符）
+
+
+原生get请求：
+1.  创建网络请求对象
+let xhr = new xmlHttpRequest()
+2.  设置open方法，指定请求方式及请求地址，参数拼接到地址后面
+xhr.open('get','url地址 ? 参数&参数')
+3.  设置onload回调函数
+xhr.onload = function(){  console.log(  JSON . parse(xhr.response)  }   // xhr.response 是后台返回的内容
+4.  调用send方法
+xhr.send()
+
+PS:原生返回的是json数据，一般使用JSON . parse()，将字符串转成数组形式
+本地存储格式化：
+JSON . stringify()	  将数组对象转换成字符串
+JSON . parse()	  将字符串转换成数组对象
+
+
+原生post请求方法：
+1.  创建网络请求对象
+let xhr = new xmlHttpRequest()
+2.  设置open方法，指定请求方式及请求地址
+xhr.open('get' , 'url地址’)
+3.  设置请求头部加密
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+4.  设置onload回调函数
+xhr.onload = function(){  console.log(  JSON . parse(xhr.response)  } 
+5.  调用send方法，参数传给send函数
+xhr.send(‘数据参数’)
+
+
+设置HTTP请求时限：
+xhr . timeOut = 毫秒数
+
+超时执行函数：
+xhr . ontimeout  = function() {}
+
+FormData 对象管理表单数据：
+PS:  表单控件要有name属性，属性名要和接口参数名一致
+       fd获得的数据不能直接用log打印，要利用 fd.get(name属性名)打印 
+
+参数如果经过formData加密的话  用jq的ajax发起请求需要将post默认的加密取消掉
+contentType: false,   processData: false,
+
+
+1.  创建FormData 对象
+let fd = new FormData（） 配合表单的话，里面表单名必须是原生对象
+
+2.  为FormData 添加表单项
+fd. append('uname' , 'zs')
+fd. append('upwd' , '123')
+
+3.  创建XHR对象
+let xhr = new XMLHttpRequest()
+
+4.  设置open方法，指定请求方式及请求地址
+xhr . open ('请求类型' ，'URL地址')
+
+5.  设置onload回调函数
+xhr.onload = function(){  console.log(  JSON . parse(xhr.response)  } 
+
+6.  调用send 函数，直接将fd 对象 提交
+xhr. send(fd)
+
+this.files         获得上传数据：返回的是伪数组
+let picFile = this.files [0]    获得数组下表为1的文件信息
+
+将文件对象转化成路径
+let url = URL.createObjectURL(文件名称)
+
+获得网络当前网络路径：
+location 对象属性：   
+1.  location.href		获取或设置  整个URL
+2.  location.host		返回主机（域名）
+3.  location.port		返回端口号
+4.  location.pathname	返回路径
+5.  location.search		返回参数
+6.  location.hash		返回片段   # 后面内容常见于链接  锚点
+
+本地存储：  括号需要加引号
+localStorage . setItem(名，值）	存储本地
+localStorage . getItem(名）		读取本地存储的数据
+localStorage . removeItem(名）	删除本地存储的指定数据
+localStorage . clear（）		清空本地存储的数据
+
+sessionStorage . setItem(名，值）	存储本地
+sessionStorage . getItem(名）		读取本地存储的数据
+sessionStorage . removeItem(名）	删除本地存储的指定数据
+sessionStorage . clear（）		清空本地存储的数据
+
+localStorage 	 存储的数据会一直存在，直到人为删除
+sessionStorage 	 浏览器关闭数据就消失
+
+
+显示文件上传的进度：
+e.lengthComputable: 一个布尔值，表示当前上传资源是否具有可节省的长度
+e.loaded    已传输的字节
+e.total	  需要传输的总字节
+
+xhr.upload.onprogress = function(e){
+if(e.lengthComputable) {
+let percentComplete = Math.ceil((e.loaded/e.total)*100)
+}}
+
+监听上传文件完成事件：xhr.upload.onload = function(){ }
+
+监听Ajax请求发起事件：$(document).ajaxStart(function() { })
+监听Ajax完成后的事件：$(document).ajaxStop(function() { })
+PS：该事件只能添加到document身上
+
+
+axios：专注于网络数据请求的库
+axios发起get请求：
+
+axios.get( 'url地址' , {params: {参数，以对象形式传入} }) . then( function(res){})   
+ 参数可以省略，res.data是服务器返回的数据，一般url和参数用变量url和 paramsObj 先接收
+
+axios发起post请求：
+axios.get( 'url地址' , { 参数 }) . then( function(res){})   
+
+复合写法：get的参数为params，post参数为data数据
+axios（{
+type: 请求类型，
+url: 请求地址，
+data:  {post数据},
+params: {get数据},
+}）. then(function（res）{} )
+
+
+同源：如果两个页面的协议，域名和端口都相同，则两个页面具有相同的源
+同源策略：是浏览器提供的一个安全功能
+
+同源策略限制了从同一个源加载的文档或脚本与来自另一个圆的资源进行交互
+非同源网站之间：
+1.  无法读取非同源网页的Cookie，Localstorage 和indexedDB
+2.  无法接触非同源网页的dom
+3.  无法向非同源地址发送ajax请求
+
+跨域：两个页面的协议，域名和端口有一个不相同，即为跨域
+跨域出现的原因：浏览器的同源策略不允许非同源的URL之间进行资源交互
+
+浏览器对跨域请求的拦截过程：
+页面跨域请求可以正常发起 --> 但跨域返回的数据会被同源策略拦截---页面无法之间获得到数据
+
+跨域的解决方法： JSONP 和 CORS
+JSONP :  出现的早，兼容性好，缺点是只支持get请求
+CORS：  出现较晚，支持get和post请求，但不兼容某些低版本浏览器
+
+JSONP的原理：
+script标签不受浏览器同源策略的影响，通过src属性，请求跨域的数据接口，并通过函数调用的形式
+接收跨域接口想要回来的数据
+
+ajax发起jsonp请求：  注意jsonp和ajax请求并没有关系
+
+$.ajax({
+url:  接口地址，    有参数通过 ？拼接到地址中
+dataType： ‘jsonp’，
+success：function（）{}，
+})
+使用ajax发起JSONP请求会自动随机生成一个callback函数名
+
+要指定回调函数的名称通过两个属指定：
+jsonp：‘callback’,              发送到服务端的参数名称
+jsonpCallback：‘abc’,	自定义回调函数的名称	
+
+
+
+
+
+
+
+
+
+
+

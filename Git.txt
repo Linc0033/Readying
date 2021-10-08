@@ -1,0 +1,91 @@
+svn：是基于差异的版本控制，存储的是一组基本文件和每个文件随时间逐步累计的差异
+优点：节省磁盘空间
+缺点：耗时，效率低，每次切换版本时都要从基本文件的基础上，应用累计的差异，从而生成对应版本
+
+Git：在原有的文件版本基础上重新生成一份新的文件，类似于备份，没有修改的文件只保留
+         一个链接指向之前的版本
+缺点：占用磁盘空间较大
+优点:  版本切换时非常快，每个版本都是完整的文件快照，切换版本时直接恢复目标版本快照即可
+
+特点：绝大部分操作只需要访问本地文件和资源
+1.  git在断网后依然可以在本地对项目进行版本管理
+2.  联网后，将本地修改的记录同步到云端服务器即可
+
+git的三个区域：工作区，暂存区，git仓库
+git的三个状态：
+1.  modified	已修改，但还没放到暂存区
+2.  staged		对已修改的文件做了标记，包含在下次提交的列表中
+3.  committed	已安全保存在本地的git仓库中
+
+命令：
+clear 				清空命令行
+git config --list --global  		查看全局配置
+git config --global user.name  xxx  	配置用户名
+git config --global user.email  xxx   	配置用户邮箱
+git config user.name 		查看用户名配置
+git help config  			打开帮助手册
+git config -h  			获取命令快速参考
+git status 			查看文件处于什么状态
+git status -s / --short		以精简方式显示文件状态，？？代表未跟踪
+git add   .  /  文件名 		向暂存区添加多个或一个文件
+git reset HEAD   .  /  文件名 		从暂存区移除对应文件，文件名换成 . 移除所有	
+git commit -m 			提交暂存区文件
+git commit -a -m 			把所有已跟踪过的目录直接提交到仓库
+git rm -f   文件名			从仓库和工作区同时移出文件
+git rm -cached  文件名		从仓库和移出文件，保留工作区中的文件
+git log -2				查看最近提交历史   加上-2则是查找最近两个
+
+git log -2	--pretty=oneline："%h, %an, %ar, %s"  	自定义格式查看最近两个提交历史	
+    %h 提交的简写,  %an 作者名字 , %ar  作者修订日期,  %s  提交说明
+
+
+Git仓库的两种方式：
+1.  将尚未进行版本控制的本地目录转为Git仓库
+	步骤：1. 在项目目录中，右键打开git bash
+	          2. 指向git init 命令 ，会常见一个.git的隐藏目录
+2.  从其他服务器克隆一个已存在的Git仓库
+
+工作区的4种状态：
+1.  未被git管理：（未跟踪）Untracked  
+2.  已被git管理：（未修改）Unmodified  （已修改）Modified  （已暂存）Staged
+
+
+忽略文件：将无需归纳到Git管理的，也不希望总是出现是未跟踪文件列表，可以创建一个.gitignore配置文件
+	 列出要忽略的文件匹配模式
+1.  以  #  开头的是注释
+2.  以  /  结尾的是目录   	 aa/    忽略aa文件夹里的所有文件  
+3.  以  /  开头防止递归   	 /aa    只忽略当前文件夹下的aa文件
+4.  以  ！开头表示取反   	 ! li.a	跟踪所有li.a文件，即使前面忽略了所有.a文件
+5.  glob模式（简化正则）进行匹配
+
+     glob模式：
+* 	匹配0个或多个任意字符
+[abc]	匹配abc中的任何一个
+？	只匹配一个任意字符
+0-9	匹配0-9之间的数字
+a/**/z	匹配以a开头z结尾的目录
+
+回退到指定版本：
+git log --pretty=oneline	展示所有提交历史，里面包含id
+git reflog --pretty=oneline	在旧版本查看所有提交历史，里面包含id
+git reset --hard   版本id	根据id推到指定版本
+
+SSH key：  
+ssh-keygen -t rsa -b 4096 -C "邮箱"   生成的id-rsa.pub存放在c盘.ssh里
+
+配置SSH
+1.  记事本打开id-rsa.pub 复制内容
+2.  GitHub头像-->setting-->SSH and GPG Keys-->New SSH key
+3.  将id-rsa.pub 复制内容粘贴到key文本框，title里简单说明key的来源
+
+验证ssh是否配置成功：ssh -T git@github.com
+
+
+
+
+
+
+
+
+
+
